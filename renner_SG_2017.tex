@@ -1,0 +1,118 @@
+% Short description of action:
+
+\documentclass[11pt,a4paper]{article}
+%\pagestyle{headings}
+%\linespread{1.6}
+
+% Set up 20 mm margins on each side
+\hoffset -5.4mm
+\voffset -5.4mm
+
+\oddsidemargin 0.0in
+\evensidemargin 0.0in
+
+\textwidth 17.0cm
+\textheight 232mm
+
+\topmargin 0.0in
+\headheight 4mm
+\headsep 9mm
+\footskip 12mm
+
+%\usepackage{hyperref,color,graphicx,braket,mathrsfs,simplewick,slashed,amsmath,amssymb,feynmf,ifpdf,pdflscape,wrapfig,fancyhdr,lastpage,etoolbox}
+\usepackage{hyperref,xcolor,graphicx,ifpdf,wrapfig,fancyhdr,lastpage,etoolbox,tocloft,multirow,array,pdflscape,enumitem,eurosym,amssymb,titlesec}
+\usepackage[square,numbers]{natbib}
+%\usepackage[backend=bibtex,style=authoryear]{biblatex}
+%\addbibresource{/home/josh/Dropbox/bibliography/xenon_fulbright.bib}
+
+\hypersetup{colorlinks,%
+            citecolor=black,%
+            linkcolor=black,%
+            filecolor=black,%
+            urlcolor=black}
+
+\bibliographystyle{apsrev4-1}
+
+% Set up the header and footer.
+\makeatletter
+\patchcmd{\@fancyhead}{\rlap}{\color{black}\rlap}{}{}
+\patchcmd{\@fancyfoot}{\rlap}{\color{black}\rlap}{}{}
+\makeatother
+
+% Set up the title spacing
+\titlespacing\section{0pt}{4pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{4pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{4pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{Renner}
+\chead{Part B1}
+\rhead{DNNEXT}
+\cfoot{\thepage}
+
+% To keep the numbering of the table of contents consistent.
+\tocloftpagestyle{fancy}
+
+% Table column formatting: from 
+% http://tex.stackexchange.com/questions/12703/how-to-create-fixed-width-table-columns-with-text-raggedright-centered-raggedlef
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\begin{document}
+\input{Commands.tex}
+
+\begin{center}
+\large
+\textbf{ERC Starting Grant 2017}\\
+Research proposal [Part B1]\\[2.0\baselineskip]
+\Large
+\textbf{Deep Learning in Detector Physics Analyses}\\[1.0\baselineskip]
+\LARGE
+\textbf{DNNEXT}\\[1.0\baselineskip]
+\end{center}
+% \vspace{5.5 in}
+
+\noindent PI: Joshua Edward Renner\\
+\noindent Host Institution: Universidad de Valencia\\
+\noindent Proposal Duration: 48 months\\
+
+\newpage
+\normalsize
+
+\newpage
+%\setcounter{page}{1}
+{\textbf{Section A: Extended Synopsis of the scientific proposal}}
+
+\newpage
+{\textbf{Section B: Curriculum Vitae}}
+%\input{src/renner_CV.tex}
+
+\newpage
+{\textbf{\emph{Appendix: All on-going and submitted grants and funding of the PI (Funding ID)}}}\\
+
+\noindent\textbf{On-going grants}\\
+
+\noindent\textbf{Grant applications}\\
+
+\newpage
+{\textbf{Section C: Early achievements track-record}}
+
+\newpage
+\chead{Part B2}
+\begin{center}
+	\large
+	\textbf{ERC Starting Grant 2017}\\
+	Research proposal [Part B1]\\[2.0\baselineskip]
+\end{center}
+
+\textbf{Part B2: \underline{The scientific proposal}}\\
+
+{\textbf{Section A: State-of-the-art and objectives}}\\
+
+{\textbf{Section B: Methodology}}\\
+
+{\textbf{Section C: Resources (including project costs)}}\\
+\end{document}
