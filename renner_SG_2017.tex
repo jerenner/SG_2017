@@ -1,5 +1,3 @@
-% Short description of action:
-
 \documentclass[11pt,a4paper]{article}
 %\pagestyle{headings}
 %\linespread{1.6}
@@ -77,8 +75,13 @@ Research proposal [Part B1]\\[2.0\baselineskip]
 
 \noindent PI: Joshua Edward Renner\\
 \noindent Host Institution: Universidad de Valencia\\
-\noindent Proposal Duration: 48 months\\
+\noindent Proposal Duration: 60 months\\
 
+The development of deep learning has been realized over the past 10 years with the rise of computing power, which has now permitted the training of neural networks with many layers
+of neurons in series.  Such networks have proven capable of high-level abstraction, that is, neurons in deeper layers have been shown to indicate the presence of complex features in a dataset, 
+such as the presence of macroscopic objects in images.  It is of great interest to study how such techniques can be applied to physics, and in particular particle detection and tracking, a field 
+in which problems exist similar to those to which deep learning has been initially applied.  We propose an in-depth study of the use of deep neural networks in several applications of particle
+physics.  We discuss the results that have already been obtained which indicate the advantages of deep neural networks over classical analysis methods and highlight their merit for further study.
 \newpage
 \normalsize
 
@@ -87,8 +90,8 @@ Research proposal [Part B1]\\[2.0\baselineskip]
 {\textbf{Section A: Extended Synopsis of the scientific proposal}}
 
 \newpage
-{\textbf{Section B: Curriculum Vitae}}
-%\input{src/renner_CV.tex}
+\noindent{\textbf{Section B: Curriculum Vitae: Joshua Edward Renner (Postdoctoral Researcher)}}\\[1.0\baselineskip]
+\input{src/renner_CV.tex}
 
 \newpage
 {\textbf{\emph{Appendix: All on-going and submitted grants and funding of the PI (Funding ID)}}}\\
@@ -108,11 +111,28 @@ Research proposal [Part B1]\\[2.0\baselineskip]
 	Research proposal [Part B1]\\[2.0\baselineskip]
 \end{center}
 
-\textbf{Part B2: \underline{The scientific proposal}}\\
+\noindent\textbf{Part B2: \underline{The scientific proposal}}\\
 
-{\textbf{Section A: State-of-the-art and objectives}}\\
+{\noindent\textbf{Section A: State-of-the-art and objectives}}\\
+In recent years, increasingly sensitive null results (cite) in searches for neutrinoless double beta ($0\nu\beta\beta$) decay have made it clear that an ultra-low background experiment 
+employing on the order of tonnes of active mass will be necessary to have a meaningful chance of discovery.  Such an experiment would require excellent energy resolution as well as the use
+additional mechanisms for background rejection.  Gaseous xenon enriched in the isotope $^{136}$Xe has shown strong potential for being the 
+isotope of choice for a discovery experiment due to its relatively low cost, ability to act as both source and detector, outstanding energy resolution, and the long ionization tracks produced by
+electrons at energies of order $Q_{\beta\beta}$, which can be analyzed to provide increased background rejection.  Currently ...\\
 
-{\textbf{Section B: Methodology}}\\
+The conventional analysis may not be enough; also want to show how DNNs can be used in physics
 
-{\textbf{Section C: Resources (including project costs)}}\\
+Discuss NEXT, DNNs, and physics applications of DNNs (what has already been done?).  Objectives:
+\begin{enumerate}
+	\item Understand the workings and limitations of DNNs (show DIGITS plots of weights)
+	\item Produce a DNN-based analysis framework for NEXT
+	\item Explore further applications of DNNs in particle physics (angular distribution in NEXT?)
+\end{enumerate}
+It needs to be made clear that NEXT is critically dependent on such an analysis, and it may be essential for a future $0\nu\beta\beta$ decay experiment.
+
+{\noindent\textbf{Section B: Methodology}}\\
+Discuss use of Python (Keras, TF) and previous use of Caffe/DIGITS.  Discuss use of GPUs.  Develop plan for analysis and procedure for understanding DNNs.  Show what has already been done.\\
+
+{\noindent\textbf{Section C: Resources (including project costs)}}\\
+
 \end{document}
