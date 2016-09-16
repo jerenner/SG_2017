@@ -29,7 +29,8 @@
             filecolor=black,%
             urlcolor=black}
 
-\bibliographystyle{apsrev4-1}
+\bibliographystyle{JHEP}
+%\bibliographystyle{apsrev4-1}
 
 % Set up the header and footer.
 \makeatletter
@@ -80,8 +81,7 @@ Research proposal [Part B1]\\[2.0\baselineskip]
 The development of deep learning has been realized over the past 10 years with the rise of computing power, which has now permitted the training of neural networks with many layers
 of neurons in series.  Such networks have proven capable of high-level abstraction, that is, neurons in deeper layers have been shown to indicate the presence of complex features in a dataset, 
 such as the presence of macroscopic objects in images.  It is of great interest to study how such techniques can be applied to physics, and in particular particle detection and tracking, a field 
-in which problems exist similar to those to which deep learning has been initially applied.  We propose an in-depth study of the use of deep neural networks in several applications of particle
-physics.  We discuss the results that have already been obtained which indicate the advantages of deep neural networks over classical analysis methods and highlight their merit for further study.
+in which problems exist similar to those to which deep learning has been initially applied.  We propose an in-depth study of the use of deep neural networks in the reconstruction and classification of events in NEXT (Neutrino Experiment with a Xenon TPC), an experiment searching for neutrinoless double beta decay in $^{136}$Xe. We discuss the results that have already been obtained which indicate the advantages of deep neural networks over classical analysis methods and highlight their merit for further study.
 \newpage
 \normalsize
 
@@ -117,22 +117,49 @@ physics.  We discuss the results that have already been obtained which indicate 
 In recent years, increasingly sensitive null results (cite) in searches for neutrinoless double beta ($0\nu\beta\beta$) decay have made it clear that an ultra-low background experiment 
 employing on the order of tonnes of active mass will be necessary to have a meaningful chance of discovery.  Such an experiment would require excellent energy resolution as well as the use
 additional mechanisms for background rejection.  Gaseous xenon enriched in the isotope $^{136}$Xe has shown strong potential for being the 
-isotope of choice for a discovery experiment due to its relatively low cost, ability to act as both source and detector, outstanding energy resolution, and the long ionization tracks produced by
-electrons at energies of order $Q_{\beta\beta}$, which can be analyzed to provide increased background rejection.  Currently ...\\
+detection medium of choice for a discovery experiment due to its relatively low cost, ability to act as both source and detector, outstanding energy resolution, and the long ionization 
+tracks produced by electrons at energies of order $Q_{\beta\beta}$, which can be analyzed to provide increased background rejection.  NEXT is working towards a presently competitive search 
+for $0\nu\beta\beta$ decay with 100 kg of xenon enriched to 90\% in $^{136}$Xe, which will also demonstrate the capacity to benefit from these advantages of gaseous xenon with a 
+large detector and thus their potential applicability at the tonne-scale.
 
-The conventional analysis may not be enough; also want to show how DNNs can be used in physics
+Because the senstivity of a background-free $0\nu\beta\beta$ search grows as the square root of the product of the (active mass) $\times$ (exposure time), while in the presence of background the sensitivity increases only as the \emph{fourth} root of the same product, background rejection is of utmost importance. As experiments grow to larger masses, the ability to interpret the information available to reject the maximum amount of background possible becomes vital to the success of the experiment.  It has been recently shown (cite DNN paper) that the conventional analysis of NEXT that has been developed up to this point can be potentially improved using deep neural networks (DNNs) to analyze receonstructed tracks in the experiment. \emph{Such improvements in the analysis will be critical in reaching the ultimate sensitivity of NEXT and in reaching the targeted sensitivity in a larger, tonne-scale experiment.}\\
 
-Discuss NEXT, DNNs, and physics applications of DNNs (what has already been done?).  Objectives:
-\begin{enumerate}
-	\item Understand the workings and limitations of DNNs (show DIGITS plots of weights)
-	\item Produce a DNN-based analysis framework for NEXT
-	\item Explore further applications of DNNs in particle physics (angular distribution in NEXT?)
+\noindent\textbf{\textbullet\,\,Objectives}\\
+The main objectives of this proposal include:
+
+\begin{enumerate}[itemsep=-1mm]
+	\item[1.] To understand the workings and limitations of DNNs as applied to classification and reconstruction in NEXT.
+	\item[2.] To produce a DNN-based analysis for NEXT, to be developed and tested alongside acquisition of NEW data.
+	\item[3.] To apply the DNN-based analysis to data acquired from the NEXT-100 detector.
+	\item[4.] To explore further applications of DNNs in NEXT and particle physics.
 \end{enumerate}
-It needs to be made clear that NEXT is critically dependent on such an analysis, and it may be essential for a future $0\nu\beta\beta$ decay experiment.
+
+\noindent\textbf{Neutrinoless Double-Beta Decay and NEXT}\\
+The prospect of demonstrating the Majorana nature of the neutrino and violation of lepton number conservation has inspired a variety of experiments to search for $0\nu\beta\beta$ decay in several candidate isotopes.  The experiments GERDA and EXO, using isotopes $^{76}$Ge and $^{136}$Xe respectively, have set lower limits on the half-life of $0\nu\beta\beta$ decay, $T_{1/2}^{0\nu}$, of greater than $10^{25}$ years.  These and other experiments, such as CUORE, MAJORANA, NEXT, SNO+, and Super-NEMO intend to constrain $T_{1/2}^{0\nu}$ with a lower bound of order $10^{26}$ years.  Recently, KamLAND-ZEN obtained a lower limit of $T_{1/2}^{0\nu} > 1.07\times 10^{26}$ years \cite{KamLANDZen_2016}. The predicted background rate in NEXT-100 is $4 \times 10^{-4}$ counts/(keV kg yr), giving rise to a lower limit on  of $T_{1/2} > 6.0\times 10^{25}$ years (90\% CL) for 3 effective years of running time \cite{NEXT_sensitivity}.  Improvements in background rejection are essential to the operation of NEXT and for realizing sensitivities of order $10^{27}$ years in future tonne-scale experiments.
+
+The core idea behind the NEXT experiment is the electroluminescent (EL) time projection chamber (TPC). In this type of detector, energy is deposited in some active volume filled with a detector medium (high pressure xenon gas, in the case of NEXT), by ionizing radiation such as energetic electrons produced by radioactive decay within the volume or gamma rays which convert via Compton scattering, pair production, or photoabsorption. The ionizing energetic particle produces a track of ionization and excitation in the active medium. The excitation gives rise to scintillation which is detected immediately by photosensors such as photomultiplier tubes (PMTs). This scintillation, called S1, is used to mark the start of the event, after which some delay occurs while the ionized electrons are drifted in an applied electric field to a readout plane at one end of the detector. 
+
+At the readout plane, the ionized electrons are drifted in a much higher electric field through an amplification region in which they are accelerated enough to excite but not ionize the xenon medium.  Each electron produces a number of xenon excitations determined by the magnitude of the electric field in the amplification region, its width, and the operating gas pressure.  These excitations give rise to additional photons (called S2), so that some number of photons is generated for each electron.  The S2 photons generated in this process, called electroluminescence, can then be detected by photosensors to give energy and position information of the event. In NEXT, a cylindrical TPC design is employed, in which a \emph{tracking plane} of silicon photomultipliers (SiPMs) is placed just behind a narrow amplification region, and an \emph{energy plane} of PMTs is installed on one end of the vessel (see figure \ref{fig.SS}, left). In addition to a precise energy measurement to reject background events with energy outside of a narrow region near $Q_{\beta\beta}$, a primary advantage of the NEXT concept is the ability to accurately reconstruct tracks and utilize the topological signature of events to distinguish between signal ($0\nu\beta\beta$) and background events, the majority of which would be produced by gamma rays generating single-electrons.  As also shown in figure \ref{fig.SS}, because of the Bragg peak in energy loss of an energetic electron which gives rise to a dense region (``blob'') of ionization at the end of its ionization track, a two-electron signal event will leave an ionization track with two such ``blobs,'' while a single-electron background event will exhibit only one.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width= 0.42\textwidth]{fig/nextEL.pdf}
+	\includegraphics[width= 0.56\textwidth]{fig/TrackSignature.pdf}
+	\caption{The NEXT concept. (Left, figure from \cite{Alvarez:2013gxa}) In an asymmetrical EL TPC, energetic electrons produce primary scintillation (S1) and ionization initially, and the ionization is drifted to the EL readout plane and amplified, producing additional scintillation photons (S2).  The energy (PMT) plane detects S1 (coordinate $z$) and S2 (energy), while the finer-resolution tracking (SiPM) plane measures S2 to deduce $(x,y)$ coordinates, resulting in a full 3D reconstruction of the track and its energy. (Right, figure from \cite{NEXT_sensitivity}) The anticipated topologies of signal and background events in a $0\nu\beta\beta$ search with high pressure xenon gas.} \label{fig.SS}
+\end{figure}
+
+In order to fully benefit from the potential of the topological signature, a sound procedure for track reconstruction and classification is essential. We have already shown ... but could do better (by a factor of 10?) with deep learning techniques.
+
+\noindent\textbf{Deep Learning}\\
+
+- also want to show how DNNs can be used in physics applications (IMPORTANT to note other potential benefits and give examples)
+- diagram of proposed analysis construction chain
 
 {\noindent\textbf{Section B: Methodology}}\\
 Discuss use of Python (Keras, TF) and previous use of Caffe/DIGITS.  Discuss use of GPUs.  Develop plan for analysis and procedure for understanding DNNs.  Show what has already been done.\\
 
 {\noindent\textbf{Section C: Resources (including project costs)}}\\
+
+\bibliography{dnnext}
 
 \end{document}
