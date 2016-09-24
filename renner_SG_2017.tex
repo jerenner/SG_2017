@@ -90,7 +90,7 @@ in which problems exist similar to those to which deep learning has been initial
 {\textbf{Section A: Extended Synopsis of the scientific proposal}}
 
 \newpage
-\noindent{\textbf{Section B: Curriculum Vitae: Joshua Edward Renner (Postdoctoral Researcher)}}\\[1.0\baselineskip]
+\noindent{\textbf{Section B: Curriculum Vitae}}\\[1.0\baselineskip]
 \input{src/renner_CV.tex}
 
 \newpage
@@ -148,15 +148,31 @@ At the readout plane, the ionized electrons are drifted in a much higher electri
 	\caption{The NEXT concept. (Left, figure from \cite{Alvarez:2013gxa}) In an asymmetrical EL TPC, energetic electrons produce primary scintillation (S1) and ionization initially, and the ionization is drifted to the EL readout plane and amplified, producing additional scintillation photons (S2).  The energy (PMT) plane detects S1 (coordinate $z$) and S2 (energy), while the finer-resolution tracking (SiPM) plane measures S2 to deduce $(x,y)$ coordinates, resulting in a full 3D reconstruction of the track and its energy. (Right, figure from \cite{NEXT_sensitivity}) The anticipated topologies of signal and background events in a $0\nu\beta\beta$ search with high pressure xenon gas.} \label{fig.SS}
 \end{figure}
 
-In order to fully benefit from the potential of the topological signature, a sound procedure for track reconstruction and classification is essential. We have already shown ... but could do better (by a factor of 10?) with deep learning techniques.
+In order to fully benefit from the potential of the topological signature, a sound procedure for track reconstruction and classification is essential. It has already been shown through a detailed comparison between Monte Carlo and data from the prototype detector NEXT-DEMO that the topological signature can be used to significantly reject background at an allowable cost in efficiency \cite{NEXT_topology}. A Monte Carlo study in \cite{NEXT_DNN} showed that such a topological analysis could be performed significantly better with deep learning techniques.
+
+The conventional NEXT analysis is performed by reconstructing a 3D track in the form of ``hits'' from the pattern of light cast on the tracking plane of SiPM detectors during EL readout. As the EL light arrives at the PMT plane when the ionization electrons of the tracks arrive at the EL plane, the track can be divided into ``slices'' in time and therefore, as drift time is related to axial location within the TPC, in the z-coordinate. The charge detected in each SiPM over each time slice is summed, and from these charges one or more hits are reconstructed by locating the SiPM with the maximum charge, using the charges of neighboring SiPMs in either a weighted sum (barycenter) or 2D Gaussian fit to reconstruct a single point, and repeating this process discarding the charges already considered. The reconstructed volume is then divided into 3D rectangular volumes or ``voxels,'' each of which is filled with the energy of each reconstructed hit that lies within it. Sequences of connected voxels are denoted as ``tracks'' and multi-track events are discarded.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width= 0.42\textwidth]{fig/sipm_map.png}
+	\includegraphics[width= 0.46\textwidth]{fig/xy_proj.png}
+	\caption{Conventional NEXT track reconstruction. (Left, figure from \cite{NEXT_topology}) Example of tracking plane signals for a single z-slice in EL readout. (Right, figure from \cite{NEXT_topology}) Example x-y projection of a voxelized track produced by a $^{22}$Na gamma source.} \label{fig.recon}
+\end{figure}
+
+The analysis continues by considering the single connected track as a graph and using the Breadth First Search (BFS) algorithm to find the shortest path between each pair of voxels in the event. The longest of such shortest ordered paths is considered to be the final track, and the extremes of this path are identified. The energy in the voxels nearby the two extremes can be summed and compared: in cases of signal two larger values (``blobs'') should be found, and only one in the case of background (see figure).  This algorithm, though reliable in many cases and shown to give good performance, has the major shortcoming that it must operate on a path with a clear beginning and end. Attempts to improve upon this algorithm by applying an external magnetic field and fitting an ordered track to an expected path using a Kalman filter have failed to improve significantly upon the results of the original algorithm despite showing promising results in theory \cite{NEXT_BFIELD}. This is because it was realized that, though in many cases a straightforward ordered reconstruction of an event is obtainable, in a significant number of cases \emph{it is very difficult or impossible to determine the ordering of a reconstructed track.}  This is mainly due to electron multiple scattering, or the sudden changes in course (by large angles) of an ionizing electron due to many scattering interactions with the atoms of the gas.  Such effects produce twisted tracks of varying geometries, often looping back on themselves and crossing. Determining the ordering of an arbitrary event containing multiple crossings is challenging and may require an algorithm that considers many special cases.
+
+Performing such an analysis with a DNN does not require pre-determining an ordered path. In some sense the DNN handles this, and as it contains many parameters, it should be able to cover many more special cases than feasible for an analytic algorithm. Replacing the blob-based analysis with a DNN has already been shown to yield significant improvement \cite{NEXT_DNN}. In fact, the DNN does not even require a connected track to operate; the reconstructed z-projections determined in the previous phase of the analysis can be passed directly to the DNN. It is such an analysis we propose to construct. By presenting a suitable DNN with a statistically broad sample of training events, one should be able to make use of all possible physical information in making the classification decision. We intend to apply such a strategy to obtain the ultimate sensitivity in NEXT and reveal how such an analysis can be applied to similar problems in particle physics.
 
 \noindent\textbf{Deep Learning}\\
-
+Several problems in particle physics have already been addressed using deep learning.
+- describe deep learning and discuss what has been done, particularly in physics
+- detail on CNNs
 - also want to show how DNNs can be used in physics applications (IMPORTANT to note other potential benefits and give examples)
-- diagram of proposed analysis construction chain
 
 {\noindent\textbf{Section B: Methodology}}\\
 Discuss use of Python (Keras, TF) and previous use of Caffe/DIGITS.  Discuss use of GPUs.  Develop plan for analysis and procedure for understanding DNNs.  Show what has already been done.\\
+
+- diagram of proposed analysis construction chain
 
 {\noindent\textbf{Section C: Resources (including project costs)}}\\
 
