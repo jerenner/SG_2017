@@ -175,22 +175,63 @@ Neural networks have been used as computational models for over 60 years, but on
 
 The fundamental constituent of a neural network is the \emph{neuron}, which takes some number of inputs $x_i$ and outputs a value $y$ that is some function of its parameters. Its parameters include one \emph{weight} $w_i$ for each input and one \emph{bias} $b$. A value $y = f(\sum_{i}w_{i}x_{i} + b)$ is computed by the neuron, where $f$ is called the activation function and is normally chosen to be a nonlinear function such as the sigmoid function $\sigma(z) = (1 + e^{-z})^{-1}$. In a conventional neural network consisting of fully connected layers, the outputs of each neuron in one layer are input to each neuron in the next layer. To train the network, a training sample consisting of inputs and the expected outputs is produced, and the net ``learns'' by introducing the inputs to the input layer, propagating all values through the neurons of the net, and computing a \emph{loss function} which quantifies the error between the actual and expected values in the output layer. The weights and biases in all of the neurons in the network can then be adjusted in a manner that serves to minimize the loss function, bringing the net closer to convergence. This is commonly done by first adjusting the parameters of the output layer and passing the information about how the loss function changes with respect to the outputs of each layer backwards through the network, i.e. via \emph{back propagation}. One common optimization method which seeks to tune the net in the direction of decreasing loss is \emph{stochastic gradient descent}. In this method and variations, the derivative of the loss function is estimated based on small random samples or \emph{batches} of training data. Training a network is then an iterative process which occurs in small batches, each of which seeks to drive the network to a state in which the loss function is overall lower. Events from the training sample are selected randomly to construct the batches, and are only used once until all training samples have been presented to the net, or an \emph{epoch} of training has been completed, at which point the process continues with another epoch.
 
-In the era of deep learning, conventional neural networks have since evolved to suit individual problems and take advantage of the ability of modern computers to train a many-layer network. A \emph{convolutional neural network} is one in which one or more specialized convolutional layers are present. These layers are not fully connected, but only a subset of outputs from the previous layer are used as inputs to each neuron in a convolutional layer. The outputs are then constructed with a set of weights and biases that are shared across all neurons in the layer. For example, in a 2D convolutional layer, the inputs are transformed to an image of dimensions $l \times w$. Some number $k$ of \emph{filters}, or sets of weights and biases of dimension $m \times n$ are applied to each patch of $m \times n$ input neurons via a multiplicative sum (convolution). An activation function is applied to the result of each convolution to give an output value so that for each filter $k$, a \emph{feature map} is generated which describes the response of the input images to the filter. As the net is trained, the filters begin to identify certain features of the image by outputting higher output in their feature maps as they are encountered. Deeper convolutional layers can become capable of identifying yet higher-level features. Several techniques are used in conjunction with convolutional layers, including \emph{pooling} which reduces the size of a feature map by taking some value (the average or the maximum) of subsets of the neurons in the feature map and discarding the rest, thus reducing the number of parameters in deeper layers. 
-
-
-
-Several problems in particle physics have already been addressed using deep learning.
-- show our past results
-- describe deep learning and discuss what has been done, particularly in physics
-- detail on CNNs
-- also want to show how DNNs can be used in physics applications (IMPORTANT to note other potential benefits and give examples)
+In the era of deep learning, conventional neural networks have since evolved to suit individual problems and take advantage of the ability of modern computers to train a many-layer network. A \emph{convolutional neural network} is one in which one or more specialized convolutional layers are present. These layers are not fully connected, but only a subset of outputs from the previous layer are used as inputs to each neuron in a convolutional layer. The outputs are then constructed with a set of weights and biases that are shared across all neurons in the layer. For example, in a 2D convolutional layer, the inputs are transformed to an image of dimensions $l \times w$. Some number $k$ of \emph{filters}, or sets of weights and biases of dimension $m \times n$ are applied to each patch of $m \times n$ input neurons via a multiplicative sum (convolution). An activation function is applied to the result of each convolution to give an output value so that for each filter $k$, a \emph{feature map} is generated which describes the response of the input images to the filter. As the net is trained, the filters begin to identify certain features of the image by outputting higher output in their feature maps as they are encountered. Deeper convolutional layers can become capable of identifying yet higher-level features. Several techniques are used in conjunction with convolutional layers, including \emph{pooling} which reduces the size of a feature map by taking some value (the average or the maximum) of subsets of the neurons in the feature map and discarding the rest, thus reducing the number of parameters in deeper layers.\\
 
 {\noindent\textbf{Section B: Methodology}}\\
-Discuss use of Python (Keras, TF) and previous use of Caffe/DIGITS.  Discuss use of GPUs.  Develop plan for analysis and procedure for understanding DNNs.  Show what has already been done.\\
+The proposed actions to be carried out can be divided into three main phases which consist of: 1. optimization of the DNN-based analyses for event classification and reconstruction, 2. construction of a full DNN-based analysis chain to be used in NEXT-NEW, and 3. scaling up this analysis chain for use on data from NEXT-100. By the end of the proposed project, we intend to have demonstrated how DNNs can be used to perform substantial physics analyses, replacing and improving upon conventional analysis algorithms, and have applied the DNN-based analysis to data from NEXT-NEW and NEXT-100. This should lead to a solid understanding of how to confront a tonne-scale search for $0\nu\beta\beta$ decay.\\
 
-- diagram of proposed analysis construction chain
+\noindent\textbf{\textbullet\,\,Phase I - Optimization of DNN-based analysis}\\
+The two major aspects of the NEXT analysis that could be significantly improved with the use of DNNs are the \emph{classification} and \emph{reconstruction}. While some initial results have been obtained demonstrating improved classification, further studies are still required to fully understand the potential for improvement. Only very basic attempts at a DNN-based reconstruction have been made at this point.
+
+To perform DNN-based classification from a reconstructed track, the information of the reconstruction must be passed to the net as input, and the net's decision must be communicated as output. In previous studies, the 3D region of space containing the track has been voxelized such that the reconstruction is a set of voxels, each containing some amount of energy. This information was then projected onto the $xy$, $yz$, and $xz$ planes (see figure \ref{fig.projs10105}), and the energies in each projected (now 2D) voxel were treated as the color channel, $(xy, yz, yz) \rightarrow (R, G, B)$ of a color image. These images could then be used with the GoogLeNet using software tools already developed to perform image recognition. The inputs to the net were the individual pixels of the 2D image, and the output layer was 2 neurons which were given a \emph{softmax} activation function - one in which the weighted sum of inputs of each of the two neurons is exponentiated, and the sum of the two exponentiated values is normalized. 
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.4]{fig/plt_h2D_dnn_NEXT100_0vbb_si_v10x10x5_r200x200x200_6_si.png}
+	\caption{\label{fig.projs10105}Projections in xy, yz, and xz for an example signal event voxelized with $10 \times 10 \times 5$ mm$^3$ voxels.}
+\end{figure}
+
+In further studies, several changes to this strategy could be investigated. For example:
+
+\begin{enumerate}[itemsep=-1mm]
+	\item[-] First, the structure of the neural net could be modified from that of the GoogLeNet to that of a less complex CNN and tuned more towards the problem at hand. The GoogLeNet was designed to identify complex features in everyday images, but for identifying patterns in voxelized tracks, perhaps the ``22-layer deep'' architecture is unnecessary and a shallower net with more convolutional filters at earlier stages should be developed. 
+	\item[-] It may be useful to analyze the three projections in separate parallel subnets, similar to the strategy used in \cite{Aurisano_2016} rather than treating them initially as three channels, which implies that their information is combined early on after an initial convolution. 
+	\item[-] 3D convolutional layers could be employed, which, though more computationally expensive, do not suffer from the loss of information present when taking projections.
+\end{enumerate}
+
+To implement the ideas above, the DNN software Keras \cite{Keras} in combination with Theano \cite{Theano} and Tensorflow \cite{Tensorflow} can be used to rapidly create and train prototype DNNs. It will also be of great interest to attempt to understand what the net is ``learning'' to optimize the net design. This can be done by examining the values of the weights of key convolutional layers, which give insight into what features they are extracting, and by carefully examining the events that are improperly classified in an attempt to identify features that are not being considered by the net. There are also physical limits to the problem - for example, a $0\nu\beta\beta$ event in which nearly all the energy is carried away by one of the two electrons is, to a detector of finite resolution, physically equivalent to a single-electron (background) event. Understanding such details not only helps in converging on the best possible classification in NEXT but also will guide similar applications of DNNs in physics.
+
+The reconstruction of tracks using DNNs could serve as a replacement for an otherwise complex reconstruction algorithm that would need to consider many special cases. As mentioned previously, due to electron multiple scattering, electron tracks in xenon gas can become quite complex. As the events are reconstructed as a series of 2D projections, a single projection may contain one or several regions of energy deposition. Assigning a single ``point'' of energy deposition to each of such regions may give a good representation of the track, but in many cases such regions will be more suited to a line than a point, and a more sophisticated analysis is needed. A good algorithm must decide where the energy was deposited and how much was deposited there by looking at a map of SiPMs, which in NEXT-NEW will be positioned with a pitch of 1 cm (see figure \ref{fig.reconst_example}).
+
+In NEXT, the individual electrons of an ionization track will arrive at the EL plane at some time $t$ and location $(x,y)$ and produce some amount of EL light detected by the SiPMs of the tracking plane and the PMTs of the energy plane. Therefore, one can imagine, summing the energy of all ionization electrons arriving within a time range $t \in [t_1,t_2]$, one has an energy distribution in the $xy$ plane. Such a distribution will cast a specific pattern of light on the tracking plane, and the ideal reconstruction algorithm would deduce this distribution exactly from the measured SiPM responses. While the conventional NEXT algorithm may need to make several decisions including how many points to reconstruct for a given SiPM response map and how to use the information from the SiPMs to determine where to locate that point, a DNN-based approach is straightforward: the response of each SiPM constitutes one input neuron, and each pixel on the energy distribution grid is an output neuron. The output layer has softmax activation as in the classification problem, so the sum of the values in all output pixels is 1 and can be multiplied by the total energy of the slice (determined by the energy plane). A track is then a series of reconstructed slices. The net can be trained on many slices taken from Monte Carlo generated tracks, in which the true 2D energy distribution of the slice is known (see figure \ref{fig.reconst_example}).
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.41]{fig/reconst_example_evt1.png}
+	\caption{\label{fig.reconst_example}Example of reconstruction of a single slice. The normalized SiPM map (left) produced by the true energy distribution (middle), as reconstructed by a simple CNN (right).}
+\end{figure}
+
+A detailed study of DNN-based reconstruction would be conducted using this strategy. Several challenges still remain, such as determining the optimum DNN architecture for the problem and dealing with the very large number of output neurons that would be required to cover the entire tracking plane with fine resolution.
+
+Skip reconstruction
+
+% figure: general conclusion of interest - SiPMs + 2 CNNS --> reconstruction + classification
+
+This phase of the study will be the focus for the first year of the proposal but will continue to be relevant throughout.\\
+
+\noindent\textbf{\textbullet\,\,Phase II - Construction of a full DNN-based analysis for NEXT-NEW}\\
+
 
 {\noindent\textbf{Section C: Resources (including project costs)}}\\
+
+%\begin{center}
+%	\begin{tabular}{|L{1.5 cm}|L{2.5 cm}|L{5.0 cm}|L{3.0 cm}|}
+%		\hline
+%		\multicolumn{3}{|l|}{\textbf{Cost Category}} & \centering\textbf{Total in Euro}\\
+%
+%		
+%	\end{tabular}
+%\end{center}
 
 \bibliography{dnnext}
 
