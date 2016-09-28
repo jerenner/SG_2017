@@ -18,7 +18,7 @@
 \footskip 12mm
 
 %\usepackage{hyperref,color,graphicx,braket,mathrsfs,simplewick,slashed,amsmath,amssymb,feynmf,ifpdf,pdflscape,wrapfig,fancyhdr,lastpage,etoolbox}
-\usepackage{hyperref,xcolor,graphicx,ifpdf,wrapfig,fancyhdr,lastpage,etoolbox,tocloft,multirow,array,pdflscape,enumitem,eurosym,amssymb,titlesec}
+\usepackage{hyperref,xcolor,graphicx,ifpdf,wrapfig,fancyhdr,lastpage,etoolbox,tocloft,multirow,array,pdflscape,enumitem,eurosym,amssymb,titlesec,multirow}
 \usepackage[square,numbers]{natbib}
 %\usepackage[backend=bibtex,style=authoryear]{biblatex}
 %\addbibresource{/home/josh/Dropbox/bibliography/xenon_fulbright.bib}
@@ -200,13 +200,18 @@ Neural networks have been used as computational models for over 60 years, but on
 
 The fundamental constituent of a neural network is the \emph{neuron}, which takes some number of inputs $x_i$ and outputs a value $y$ that is some function of its parameters. Its parameters include one \emph{weight} $w_i$ for each input and one \emph{bias} $b$. A value $y = f(\sum_{i}w_{i}x_{i} + b)$ is computed by the neuron, where $f$ is called the activation function and is normally chosen to be a nonlinear function such as the sigmoid function $\sigma(z) = (1 + e^{-z})^{-1}$. In a conventional neural network consisting of fully connected layers, the outputs of each neuron in one layer are input to each neuron in the next layer. To train the network, a training sample consisting of inputs and the expected outputs is produced, and the net ``learns'' by introducing the inputs to the input layer, propagating all values through the neurons of the net, and computing a \emph{loss function} which quantifies the error between the actual and expected values in the output layer. The weights and biases in all of the neurons in the network can then be adjusted in a manner that serves to minimize the loss function, bringing the net closer to convergence. This is commonly done by first adjusting the parameters of the output layer and passing the information about how the loss function changes with respect to the outputs of each layer backwards through the network, i.e. via \emph{back propagation}. One common optimization method which seeks to tune the net in the direction of decreasing loss is \emph{stochastic gradient descent}. In this method and variations, the derivative of the loss function is estimated based on small random samples or \emph{batches} of training data. Training a network is then an iterative process which occurs in small batches, each of which seeks to drive the network to a state in which the loss function is overall lower. Events from the training sample are selected randomly to construct the batches, and are only used once until all training samples have been presented to the net, or an \emph{epoch} of training has been completed, at which point the process continues with another epoch.
 
-% figure illustrating conventional and CNN nets
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width= 0.48\textwidth]{fig/general_nn_fc.pdf}
+	\includegraphics[width= 0.48\textwidth]{fig/cnn_example.pdf}
+	\caption{(Left) A fully-connected neural network architecture in which all neurons in a layer are connected to all neurons in the previous and next layers. (Right) A convolutional layer, in which the neurons consider as inputs only those within an $m \times n ~(\times k_i)$ for a filter size of $m \times n$ and a number of input channels $k_i$. The number of output channels $k_f$ is the number of ``feature maps,'' roughly corresponding to the number of ``features'' the layer is trained to identify. Each neuron in each output channel shares the same set of $m \times n ~(\times k_i)$ weights, significantly reducing the number of parameters when compared to a fully connected layer.} \label{fig.nets}
+\end{figure}
 
 In the era of deep learning, conventional neural networks have evolved to suit individual problems and take advantage of the ability of modern computers to train a many-layer network. A \emph{convolutional neural network} (CNN) is one in which one or more specialized convolutional layers are present. These layers are not fully connected, but only a subset of outputs from the previous layer are used as inputs to each neuron in a convolutional layer. The outputs are then constructed with a set of weights and biases that are shared across all neurons in the layer. For example, in a 2D convolutional layer, the inputs are transformed to an image of dimensions $l \times w$. Some number $k$ of \emph{filters}, or sets of weights and biases of dimension $m \times n$ are applied to each patch of $m \times n$ input neurons via a multiplicative sum (convolution). An activation function is applied to the result of each convolution to give an output value so that for each filter $k$, a \emph{feature map} is generated which describes the response of the input images to the filter. As the net is trained, the filters begin to identify certain features of the image by outputting higher output in their feature maps as they are encountered. Deeper convolutional layers can become capable of identifying yet higher-level features. Several techniques are used in conjunction with convolutional layers, including \emph{pooling} which reduces the size of a feature map by taking some value (the average or the maximum) of subsets of the neurons in the feature map and discarding the rest, thus reducing the number of parameters in deeper layers. 
 
 An initial study \cite{NEXT_DNN} has shown that CNNs provide an improved alternative to the NEXT conventional (``blob''-based) analysis. The GoogLeNet \cite{Googlenet}, a 22-layer deep CNN recently developed to identify objects in images, was trained on over 400 000 Monte Carlo events (50\% single-electron background, 50\% $0\nu\beta\beta$ signal) using the Caffe deep learning framework \cite{jia2014caffe} and the NVIDIA DIGITS \cite{DIGITS} interface. The trained nets were then used to classify the same events as those to which the conventional analysis was applied (figure \ref{fig.blobs}) and was found to perform better by a factor of 1.17 - 1.62 depending on the reconstruction resolution (size of voxels). This analysis was performed by creating a color image from three projections (xy, xz, yz) of the voxelized track and using the resulting 2D image as input to the GoogLeNet. As standard out-of-the-box tools were used in this initial analysis, there is potential for significant improvement with further study. In particular, optimizing and understanding the design of the classifier neural network, replacing the standard NEXT reconstruction methodology (voxelization + graph theory) with a DNN, and creating a complete DNN-based analysis chain all promise potential improvement and lie within the objectives of this proposal.
 
-There is also strong potential for revealing additional applications of deep learning in particle physics. Several problems have been addressed and have shown positive results. In \cite{Aurisano_2016}, a CNN was designed to classify reconstructed neutrino events in the NOvA experiment into one of several categories based on the flavor of the interacting neutrino and the type of interaction that occurred, and the results were found to be on-par and in some cases better than those of the previously employed algorithms.\\
+There is also strong potential for revealing additional applications of deep learning in particle physics. Several other studies have already made use of deep learning and obtained positive results. In \cite{Aurisano_2016}, a CNN was designed to classify reconstructed neutrino events in the NOvA experiment into one of several categories based on the flavor of the interacting neutrino and the type of interaction that occurred, and the results were found to be on-par and in some cases better than those of the previously employed algorithms. In \cite{Baldi_2014}, 5-layer deep neural networks were shown to perform significantly better than single-hidden-layer neural networks in classifying signal vs. background in a Monte Carlo study of two benchmark high-energy physics classification problems. They even concluded that the deep neural networks showed signs of learning higher-level features from the simulated data.\\
 
 {\noindent\textbf{Section B: Methodology}}\\
 The proposed actions to be carried out can be divided into three main phases which consist of: 1. optimization of the DNN-based analyses for event classification and reconstruction, 2. construction of a full DNN-based analysis chain to be used in NEXT-NEW, and 3. scaling up this analysis chain for use on data from NEXT-100. By the end of the proposed project, we intend to have demonstrated how DNNs can be used to perform substantial physics analyses, replacing and improving upon conventional analysis algorithms, and have applied the DNN-based analysis to data from NEXT-NEW and NEXT-100. This should lead to a solid understanding of how to confront a tonne-scale search for $0\nu\beta\beta$ decay.\\
@@ -244,25 +249,70 @@ In NEXT, the individual electrons of an ionization track will arrive at the EL p
 
 A detailed study of DNN-based reconstruction would be conducted using this strategy. Several challenges still remain, such as determining the optimum DNN architecture for the problem and dealing with the very large number of output neurons that would be required to cover the entire tracking plane with fine resolution.
 
-Skip reconstruction
-
-% figure: general conclusion of interest - SiPMs + 2 CNNS --> reconstruction + classification
+Though visual reconstruction of particle tracks is a primary goal of NEXT and will be a principle part of the analysis, it may not be necessary for a DNN-based classification. If a DNN is to be used to reconstruct the energy distribution produced by a track in a 3D voxelized space, and the resulting voxels are to be input to another DNN to perform the classification, perhaps a single net could be given as input the SiPM maps corresponding to the z-slices and output the classification. Such an analysis must also be studied, as it is less intuitive. If sucessful, it would further demonstrate the power of DNNs to replace conventional analysis algorithms - we reconstruct the tracks and make the classification decision based on the track because this is the most sensible manner in which we can break down and approach the classification problem. For a DNN, as long as the same original information (the SiPM response maps) is present, it can ``learn'' its own way to use that information to make the optimal classification. As the reconstruction step introduces some error, this may be the ideal approach.
 
 This phase of the study will be the focus for the first year of the proposal but will continue to be relevant throughout.\\
 
 \noindent\textbf{\textbullet\,\,Phase II - Construction of a full DNN-based analysis for NEXT-NEW}\\
 
+\noindent\textbf{\textbullet\,\,Phase III - Application of DNN-based analysis to NEXT-100}\\
 
 {\noindent\textbf{Section C: Resources (including project costs)}}\\
 
-%\begin{center}
-%	\begin{tabular}{|L{1.5 cm}|L{2.5 cm}|L{5.0 cm}|L{3.0 cm}|}
-%		\hline
-%		\multicolumn{3}{|l|}{\textbf{Cost Category}} & \centering\textbf{Total in Euro}\\
-%
-%		
-%	\end{tabular}
-%\end{center}
+\begin{center}
+	\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{|L{1.2 cm}|L{2.5 cm}|L{8.0 cm}|C{3.0 cm}|}
+		\hline
+		\multicolumn{3}{|l|}{\textbf{Cost Category}} & {\centering\textbf{Total in Euro}}\\
+		\hline
+		
+		\multirow{12}{*}{\parbox{1.2cm}{\textbf{Direct Costs}}} &
+		\multirow{5}{*}{\textbf{Personnel}} & 
+		PI & \\
+		\cline{3-4}
+		&& Senior Staff &\\
+		\cline{3-4}
+		&& Postdocs &\\
+		\cline{3-4}
+		&& Students &\\
+		\cline{3-4}
+		&& Other &\\
+		
+		\cline{2-4}		
+		& \multicolumn{2}{|l|}{\emph{i. Total Direct Costs for Personnel (in Euro)}} & \\
+		\cline{2-4}		
+		& \multicolumn{2}{|l|}{\textbf{Travel}} & \\
+		\cline{2-4}		
+		& \multicolumn{2}{|l|}{\textbf{Equipment}} & \\
+		\cline{2-4}
+		
+		& \multirow{3}{*}{\parbox{2.5cm}{\textbf{Other goods and services}}} & 
+		Consumables & \\
+		\cline{3-4}
+		&& Publications (including Open Access fees), etc. &\\
+		\cline{3-4}
+		&& Other (please specify) &\\
+
+		\cline{2-4}		
+		& \multicolumn{2}{|l|}{\emph{ii. Total Other Direct Costs (in Euro)}} & \\
+
+		\cline{1-4}
+		\multicolumn{3}{|l|}{\textbf{A - Total Direct Costs (i + ii)} (in Euro)} & \\
+		\cline{1-4}
+		\multicolumn{3}{|l|}{\textbf{B - Indirect Costs (overheads)} 25\% of Direct Costs (in Euro)} & \\
+		\cline{1-4}
+		\multicolumn{3}{|l|}{\textbf{C1 - Subcontracting Costs} (no overheads) (in Euro)} & \\
+		\cline{1-4}
+		\multicolumn{3}{|l|}{\textbf{C2 - Other Direct Costs with no overheads} (in Euro)} & \\
+		\cline{1-4}
+		\multicolumn{3}{|l|}{\textbf{Total Estimated Eligible Costs (A + B + C)} (in Euro)} & \\
+		\cline{1-4}
+		\multicolumn{3}{|l|}{\textbf{Total Requested EU Contribution} (in Euro)} & \\
+														
+		\hline
+		
+	\end{tabular}
+\end{center}
 
 \newpage
 \bibliography{dnnext}
