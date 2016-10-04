@@ -29,6 +29,7 @@
             filecolor=black,%
             urlcolor=black}
         
+%\makesavenoteenv{tabular}
 \definecolor{Gray}{gray}{0.95}
 
 \bibliographystyle{JHEP}
@@ -237,7 +238,15 @@ In further studies, several changes to this strategy could be investigated. For 
 	\item[-] 3D convolutional layers could be employed, which, though more computationally expensive, do not suffer from the loss of information present when taking projections.
 \end{enumerate}
 
-To implement the ideas above, the DNN software Keras \cite{Keras} in combination with Theano \cite{Theano} and Tensorflow \cite{Tensorflow} can be used to rapidly create and train prototype DNNs. It will also be of great interest to attempt to understand what the net is ``learning'' to optimize the net design. This can be done by examining the values of the weights of key convolutional layers, which give insight into what features they are extracting, and by carefully examining the events that are improperly classified in an attempt to identify features that are not being considered by the net. There are also physical limits to the problem - for example, a $0\nu\beta\beta$ event in which nearly all the energy is carried away by one of the two electrons is, to a detector of finite resolution, physically equivalent to a single-electron (background) event. Understanding such details not only helps in converging on the best possible classification in NEXT but also will guide similar applications of DNNs in physics.
+To implement the ideas above, the DNN software Keras \cite{Keras} in combination with Theano \cite{Theano} and Tensorflow \cite{Tensorflow} can be used to rapidly create and train prototype DNNs. It will also be of great interest to attempt to understand what the net is ``learning'' to optimize the net design. This can be done by examining the values of the weights and/or feature maps of key convolutional layers, which may give insight into what features they are extracting (see figure \ref{fig.featuremaps} and \cite{Aurisano_2016}), and by carefully examining the events that are improperly classified in an attempt to identify features that are not being considered by the net. There are also physical limits to the problem - for example, a $0\nu\beta\beta$ event in which nearly all the energy is carried away by one of the two electrons is, to a detector of finite resolution, physically equivalent to a single-electron (background) event. Understanding such details not only helps in converging on the best possible classification in NEXT but also will guide similar applications of DNNs in physics.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.5]{fig/MAGBOX_oldPhys_600k_png0.png}\\
+	\includegraphics[scale=0.3635]{fig/MAGBOX_oldPhys_600k_png0_conv1_output_8x8.png}
+	\includegraphics[scale=1.0]{fig/MAGBOX_oldPhys_600k_png0_inception3b_output_8x8.png}
+	\caption{\label{fig.featuremaps}(Top) A Monte Carlo generated signal event converted to an RGB image in which each color contains information about one projection $(xy, yz, yz) \rightarrow (R, G, B)$.  Note that the colors have been brightened from their original values for for better visibility. (Bottom left) The feature maps, as visualized by the NVIDIA DIGITS \cite{DIGITS} interface, output by the first convolutional layer of a trained GoogLeNet DNN in classification of the input event. (Bottom right) 64 of the feature maps after a convolutional layer 7-layers-deep into the same DNN in classifying the same event. The outputs of the initial convolutional layer look somewhat similar to the input event, essentially responding to certain patterns in the track. Here the convolution is done in steps of 2 pixels, so the image size is reduced by $1/2$ in each dimension. Looking into deeper layers (in which the image size has been further reduced) begins to show the higher-level features exhibited by this event that the DNN is recognizing.}
+\end{figure}
 
 The reconstruction of tracks using DNNs could serve as a replacement for an otherwise complex reconstruction algorithm that would need to consider many special cases. As mentioned previously, due to electron multiple scattering, electron tracks in xenon gas can become quite complex. As the events are reconstructed as a series of 2D projections, a single projection may contain one or several regions of energy deposition. Assigning a single ``point'' of energy deposition to each of such regions may give a good representation of the track, but in many cases such regions will be more suited to a line than a point, and a more sophisticated analysis is needed. A good algorithm must decide where the energy was deposited and how much was deposited there by looking at a map of SiPMs, which in NEXT-NEW will be positioned with a pitch of 1 cm (see figure \ref{fig.reconst_example}).
 
@@ -293,7 +302,7 @@ Our ultimate goal in this phase is to demonstrate the potential improvement in s
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[scale=0.5]{fig/half_life_sensitivity.pdf}
+	\includegraphics[scale=0.6]{fig/half_life_sensitivity.pdf}
 	\caption{\label{fig.halflife}The calculated sensitivity of NEXT-100 to the half life of neutrinoless double beta decay $T^{0\nu}_{1/2}$ for a given exposure time. The blue curve shows the sensitivity assuming the conventional NEXT analysis under conditions of pure xenon diffusion, and the red curve shows the sensitivity assuming the improvements obtained thus far with DNN-based classification and low diffusion. The calculation was done using the Feldman-Cousins approach \cite{Feldman_1998} as described in detail in \cite{NEXT_sensitivity}. (Figure from \cite{NEXT_DNN})}
 \end{figure}
 
@@ -305,14 +314,22 @@ NEXT is an international collaboration consisting of groups from over 15 institu
 G\'{o}mez-Cadenas currently holds an ERC Advanced Grant for R\&D and construction of NEXT. This funding, along with a Fulbright Junior Researcher grant previously held by the proposed P.I. (J. Renner), has allowed NEXT to conduct an initial study on the application of deep learning as an analysis technique in NEXT. The promising results obtained suggest a more detailed and complete study is needed and could make a key difference in the outcome of NEXT and future ton-scale searches for $0\nu\beta\beta$.\\
 
 \noindent\textbf{\textbullet\,\,Proposed personnel expenses}\\
-Currently, a significant fraction of the IFIC group is devoted to developing software and analysis for the experiment. The core DNN team would be comprised of the P.I., 2 postdocs, and 2 graduate students from this group. The idea would be to have a small team of 1 postdoc and 1 graduate student that would begin addressing one of the two main DNN-based tasks (reconstruction and classification) in the initial phase of the project. Later the team would join efforts internally and with the rest of the NEXT software and analysis team to analyze data from NEXT-NEW and ultimately NEXT-100.
+Currently, a significant fraction of the IFIC group is devoted to developing software and analysis for the experiment. The core DNN team would be comprised of the P.I., 2 postdocs, and 2 graduate students from this group. The idea would be to have two small teams overseen by the P.I., each team consisting of 1 postdoc and 1 graduate student, that would begin addressing one of the two main DNN-based tasks (reconstruction and classification) in the initial phase of the project. Later the two teams would join efforts internally and with the rest of the NEXT software and analysis team to analyze data from NEXT-NEW and ultimately NEXT-100.
 
 The P.I. and each post-doc would require a commitment of 42 650\euro ~per year, and each graduate student 22 500\euro ~per year.\\
 % more detailed plan for how work is divided?
 
 \noindent\textbf{\textbullet\,\,Existing tools and equipment}\\
+The initial DNN studies within NEXT have been run on GPUs on a machine at UTA which is shared with other users there. The continued use of this machine for more intensive studies is impractical, and thus a machine containing 2 NVIDIA TITAN X GPUs has been ordered and is to be set up at IFIC. This machine should be sufficient to begin phase I of the proposed project. Throughout the project, we will continue to make use of existing open-source deep learning software tools. We intend particularly to make use of Python-based tools such as Keras \cite{Keras}, Theano \cite{Theano}, and TensorFlow \cite{Tensorflow} which allow for rapid prototyping and training of neural networks.
 
-% UTA machine, Python, Keras, Tensorflow, Theano, Caffe, 2-GPU machine
+The detectors NEXT-NEW and NEXT-100 will also be used in phases II and III, though these are funded by the main NEXT grants and other sources, and thus no resources are requested in this proposal to be applied directly to the construction and operation of the detectors outside the scope of applications to deep learning. In particular, NEXT-NEW should already be operational and performing its initial physics run when the proposed project begins.\\
+
+\noindent\textbf{\textbullet\,\,Proposed equipment expenses}\\
+We request 20 000\euro ~(4000/year) to cover miscellaneous computing expenses of individual group members. We also propose 20 000\euro ~towards the purchase of a larger ($\sim$8-GPU) machine later in the project (year 3) to meet the larger data analysis needs of NEXT-100. If the timing is right and if still plausible after further investigation, some of these proposed computing funds may go towards the purchase of a computer with neural architecture.
+
+Recent research and development has focused on new types of computers with architectures designed to reflect the brain, that is a designed as a neural network in \emph{hardware}. The IBM TrueNorth \cite{TrueNorth} chip, consisting of 1 million ``neurons'' and 256 million neural connections or ``synapses'' made using 5.4 billion transistors, was recently developed along with corresponding tools for simulating and programming it. If a machine containing such a chip were to become readily available during the timespan of this project, we would be interested in running the proposed DNN-based analysis in this new type of hardware and assessing the potential advantages it may offer.\\
+
+\noindent\textbf{\textbullet\,\,Summary of resources requested}\\
 
 \begin{center}
 	\renewcommand{\arraystretch}{1.2}
@@ -321,72 +338,140 @@ The P.I. and each post-doc would require a commitment of 42 650\euro ~per year, 
 		\multicolumn{3}{|l|}{\textbf{Cost Category}} & {\centering\textbf{Total in Euro}}\\
 		\hline
 		
-		\multirow{12}{*}{\parbox{1.2cm}{\textbf{Direct Costs\footnote{An additional cost category 'Direct Costing for Large Research Infrastructures' applicable to H2020 can be added to this table (below `Other goods and services') for PIs who are hosted by institutions with Large Research Infrastructures of a value of at least EUR 20 million and only after having received a positive ex-ante assessment from the Commission's services (see \emph{`Information for Applicants to the Starting and Consolidator Grant 2017 Calls'} for more details).}}}} &
+		\multirow{12}{*}{\parbox{1.2cm}{\textbf{Direct Costs}}} &
 		\multirow{5}{*}{\textbf{Personnel}} & 
-		PI\footnote{When calculating the salary, please take into account the percentage of your dedicated working time to run the ERC- funded project (i.e. minimum 50\% of your total working time).} & \\
+		PI & 213 250\\
 		\cline{3-4}
-		&& Senior Staff &\\
+		&& Senior Staff & 0\\
 		\cline{3-4}
-		&& Postdocs &\\
+		&& Postdocs & 426 500\\
 		\cline{3-4}
-		&& Students &\\
+		&& Students & 337 500\\
 		\cline{3-4}
-		&& Other &\\
+		&& Other & 0\\
 		
 		\cline{2-4}		
-		& \multicolumn{2}{l|}{\emph{i. Total Direct Costs for Personnel (in Euro)}} & \\
+		& \multicolumn{2}{l|}{\emph{i. Total Direct Costs for Personnel (in Euro)}} & 977 250\\
 		\cline{2-4}		
-		& \multicolumn{2}{l|}{\textbf{Travel}} & \\
+		& \multicolumn{2}{l|}{\textbf{Travel}} & 25 000\\
 		\cline{2-4}		
-		& \multicolumn{2}{l|}{\textbf{Equipment}} & \\
+		& \multicolumn{2}{l|}{\textbf{Equipment}} & 40 000\\
 		\cline{2-4}
 		
 		& \multirow{3}{*}{\parbox{2.5cm}{\textbf{Other goods and services}}} & 
-		Consumables & \\
+		Consumables & 0\\
 		\cline{3-4}
-		&& Publications (including Open Access fees), etc. &\\
+		&& Publications (including Open Access fees), etc. & 0\\
 		\cline{3-4}
-		&& Other (please specify) &\\
+		&& Other (please specify) & 0\\
 		
 		\cline{2-4}		
-		& \multicolumn{2}{l|}{\emph{ii. Total Other Direct Costs (in Euro)}} & \\
+		& \multicolumn{2}{l|}{\emph{ii. Total Other Direct Costs (in Euro)}} & 65 000\\
 		
 		\cline{1-4}
-		\multicolumn{3}{|l|}{\textbf{A - Total Direct Costs (i + ii)} (in Euro)} & \\
+		\multicolumn{3}{|l|}{\textbf{A - Total Direct Costs (i + ii)} (in Euro)} & 1 042 250\\
 		\cline{1-4}
-		\multicolumn{3}{|l|}{\textbf{B - Indirect Costs (overheads)} 25\% of Direct Costs\footnote{Please note that the overheads are fixed to a flat rate of exactly 25\%.} (in Euro)} & \\
+		\multicolumn{3}{|l|}{\textbf{B - Indirect Costs (overheads)} 25\% of Direct Costs (in Euro)} & 260 563\\
 		\cline{1-4}
-		\multicolumn{3}{|l|}{\textbf{C1 - Subcontracting Costs} (no overheads) (in Euro)} & \\
+		\multicolumn{3}{|l|}{\textbf{C1 - Subcontracting Costs} (no overheads) (in Euro)} & 0\\
 		\cline{1-4}
-		\multicolumn{3}{|l|}{\textbf{C2 - Other Direct Costs with no overheads\footnote{Such as the costs of resources made available by third parties which are not used on the premises of the beneficiary (see \emph{`Information for Applicants to the Starting and Consolidator Grant 2017 Calls' for details).}}} (in Euro)} & \\
-		\cline{1-4}
-		\rowcolor{Gray}
-		\multicolumn{3}{|l|}{\textbf{Total Estimated Eligible Costs (A + B + C)} (in Euro)\footnote{\label{note1}These figures MUST match those presented in the online proposal submission form, section 3 -- Budget.}} & \\
-		\rowcolor{black}
-		\cline{1-4}
-		\rowcolor{Gray}
-		\multicolumn{3}{|l|}{\textbf{Total Requested EU Contribution} (in Euro)\footref{note1}} & \\
-		
-		\hline
-		
-	\end{tabular}
+		\multicolumn{3}{|l|}{\textbf{C2 - Other Direct Costs with no overheads} (in Euro)} & 0\\
+	\cline{1-4}
+	\rowcolor{Gray}
+	\multicolumn{3}{|l|}{\textbf{Total Estimated Eligible Costs (A + B + C)} (in Euro)} & 1 302 813\\
+	\rowcolor{black}
+	\cline{1-4}
+	\rowcolor{Gray}
+	\multicolumn{3}{|l|}{\textbf{Total Requested EU Contribution} (in Euro)} & 1 302 813\\
+	
+	\hline
+	
+\end{tabular}
 \end{center}
 
 \begin{center}
-	\begin{tabular}{||l||r||}
+	\begin{tabular}{||L{14.0 cm}|R{1.2 cm}||}
 		\hline
 		\hline
-		\textbf{Please indicate the duration of the project in months:\footnote{The maximum award is reduced pro rata temporis for projects of a shorter duration (e.g. for a project of 48 months duration the maximum requested EU contribution allowed is EUR 1.2 million).  Additional funding to cover major one-off costs is not subject to pro-rata temporis reduction for projects of shorter duration (e.g. with additional funding it is possible to request a maximum EU contribution of EUR 1.7 million for a project of 48 months duration). }} & \\
+		\textbf{Please indicate the duration of the project in months:} & \\
 		\hline
 		\hline
-		\textbf{Please indicate the \% of working time the PI dedicates to the } & \textbf{90\%} \\
-		\textbf{project over the period of the grant:} & \\
+		\textbf{Please indicate the \% of working time the PI dedicates to the project over the period of the grant:} & \textbf{90\%} \\
 		\hline
 		\hline
 	\end{tabular}
 \end{center}
 
-% Discuss resources, larger GPU machine, neural computer
+%\begin{center}
+%	\renewcommand{\arraystretch}{1.2}
+%	\begin{tabular}{|L{1.2 cm}|L{2.5 cm}|L{8.0 cm}|C{3.0 cm}|}
+%		\hline
+%		\multicolumn{3}{|l|}{\textbf{Cost Category}} & {\centering\textbf{Total in Euro}}\\
+%		\hline
+%		
+%		\multirow{12}{*}{\parbox{1.2cm}{\textbf{Direct Costs\footnote{An additional cost category 'Direct Costing for Large Research Infrastructures' applicable to H2020 can be added to this table (below `Other goods and services') for PIs who are hosted by institutions with Large Research Infrastructures of a value of at least EUR 20 million and only after having received a positive ex-ante assessment from the Commission's services (see \emph{`Information for Applicants to the Starting and Consolidator Grant 2017 Calls'} for more details).}}}} &
+%		\multirow{5}{*}{\textbf{Personnel}} & 
+%		PI\footnote{When calculating the salary, please take into account the percentage of your dedicated working time to run the ERC- funded project (i.e. minimum 50\% of your total working time).} & \\
+%		\cline{3-4}
+%		&& Senior Staff &\\
+%		\cline{3-4}
+%		&& Postdocs &\\
+%		\cline{3-4}
+%		&& Students &\\
+%		\cline{3-4}
+%		&& Other &\\
+%		
+%		\cline{2-4}		
+%		& \multicolumn{2}{l|}{\emph{i. Total Direct Costs for Personnel (in Euro)}} & \\
+%		\cline{2-4}		
+%		& \multicolumn{2}{l|}{\textbf{Travel}} & \\
+%		\cline{2-4}		
+%		& \multicolumn{2}{l|}{\textbf{Equipment}} & \\
+%		\cline{2-4}
+%		
+%		& \multirow{3}{*}{\parbox{2.5cm}{\textbf{Other goods and services}}} & 
+%		Consumables & \\
+%		\cline{3-4}
+%		&& Publications (including Open Access fees), etc. &\\
+%		\cline{3-4}
+%		&& Other (please specify) &\\
+%		
+%		\cline{2-4}		
+%		& \multicolumn{2}{l|}{\emph{ii. Total Other Direct Costs (in Euro)}} & \\
+%		
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{A - Total Direct Costs (i + ii)} (in Euro)} & \\
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{B - Indirect Costs (overheads)} 25\% of Direct Costs\footnote{Please note that the overheads are fixed to a flat rate of exactly 25\%.} (in Euro)} & \\
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{C1 - Subcontracting Costs} (no overheads) (in Euro)} & \\
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{C2 - Other Direct Costs with no overheads\footnote{Such as the costs of resources made available by third parties which are not used on the premises of the beneficiary (see \emph{`Information for Applicants to the Starting and Consolidator Grant 2017 Calls' for details).}}} (in Euro)} & \\
+%		\cline{1-4}
+%		\rowcolor{Gray}
+%		\multicolumn{3}{|l|}{\textbf{Total Estimated Eligible Costs (A + B + C)} (in Euro)\footnote{\label{note1}These figures MUST match those presented in the online proposal submission form, section 3 -- Budget.}} & \\
+%		\rowcolor{black}
+%		\cline{1-4}
+%		\rowcolor{Gray}
+%		\multicolumn{3}{|l|}{\textbf{Total Requested EU Contribution} (in Euro)\footref{note1}} & \\
+%		
+%		\hline
+%		
+%	\end{tabular}
+%\end{center}
+
+%\begin{center}
+%	\begin{tabular}{||L{14.0 cm}|R{1.2 cm}||}
+%		\hline
+%		\hline
+%		\textbf{Please indicate the duration of the project in months:\footnote{The maximum award is reduced pro rata temporis for projects of a shorter duration (e.g. for a project of 48 months duration the maximum requested EU contribution allowed is EUR 1.2 million).  Additional funding to cover major one-off costs is not subject to pro-rata temporis reduction for projects of shorter duration (e.g. with additional funding it is possible to request a maximum EU contribution of EUR 1.7 million for a project of 48 months duration). }} & \\
+%		\hline
+%		\hline
+%		\textbf{Please indicate the \% of working time the PI dedicates to the project over the period of the grant:} & \textbf{90\%} \\
+%		\hline
+%		\hline
+%	\end{tabular}
+%\end{center}
 
 %\begin{center}
 %	\renewcommand{\arraystretch}{1.2}
