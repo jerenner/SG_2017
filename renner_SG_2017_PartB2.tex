@@ -18,7 +18,7 @@
 \footskip 12mm
 
 %\usepackage{hyperref,color,graphicx,braket,mathrsfs,simplewick,slashed,amsmath,amssymb,feynmf,ifpdf,pdflscape,wrapfig,fancyhdr,lastpage,etoolbox}
-\usepackage{hyperref,xcolor,graphicx,ifpdf,wrapfig,fancyhdr,lastpage,etoolbox,tocloft,multirow,array,pdflscape,enumitem,eurosym,amssymb,titlesec,multirow}
+\usepackage{hyperref,xcolor,graphicx,ifpdf,wrapfig,fancyhdr,lastpage,etoolbox,tocloft,multirow,array,pdflscape,enumitem,eurosym,amssymb,titlesec,multirow,footnote,color,colortbl,scrextend,etoolbox}
 \usepackage[square,numbers]{natbib}
 %\usepackage[backend=bibtex,style=authoryear]{biblatex}
 %\addbibresource{/home/josh/Dropbox/bibliography/xenon_fulbright.bib}
@@ -28,6 +28,9 @@
             linkcolor=black,%
             filecolor=black,%
             urlcolor=black}
+        
+%\makesavenoteenv{tabular}
+\definecolor{Gray}{gray}{0.95}
 
 \bibliographystyle{JHEP}
 %\bibliographystyle{apsrev4-1}
@@ -63,77 +66,11 @@
 \begin{document}
 \input{Commands.tex}
 
-\begin{center}
-\large
-\textbf{ERC Starting Grant 2017}\\
-Research proposal [Part B1]\\[2.0\baselineskip]
-\Large
-\textbf{Deep Learning in Detector Physics Analyses}\\[1.0\baselineskip]
-\LARGE
-\textbf{DNNEXT}\\[1.0\baselineskip]
-\end{center}
-% \vspace{5.5 in}
-
-\noindent PI: Joshua Edward Renner\\
-\noindent Host Institution: Universidad de Valencia\\
-\noindent Proposal Duration: 60 months\\
-
-The development of deep learning has been realized over the past 10 years with the rise of computing power, which has now permitted the training of neural networks with many layers
-of neurons in series.  Such networks have proven capable of high-level abstraction, that is, neurons in deeper layers have been shown to indicate the presence of complex features in a dataset, 
-such as the presence of macroscopic objects in images.  It is of great interest to study how such techniques can be applied to physics, and in particular particle detection and tracking, a field 
-in which problems exist similar to those to which deep learning has been initially applied.  We propose an in-depth study of the use of deep neural networks in the reconstruction and classification of events in NEXT (Neutrino Experiment with a Xenon TPC), an experiment searching for neutrinoless double beta decay in $^{136}$Xe. We discuss the results that have already been obtained which indicate the advantages of deep neural networks over classical analysis methods and highlight their merit for further study.
-\newpage
-\normalsize
-
-\newpage
-%\setcounter{page}{1}
-{\textbf{Section A: Extended Synopsis of the scientific proposal}}
-
-\newpage
-\noindent{\textbf{Section B: Curriculum Vitae}}\\[1.0\baselineskip]
-\input{src/renner_CV.tex}
-
-\newpage
-{\textbf{\emph{Appendix: All on-going and submitted grants and funding of the PI (Funding ID)}}}\\
-
-\noindent\textbf{On-going grants}\\
-
-\noindent\textbf{Grant applications}\\
-
-\newpage
-{\textbf{Section C: Early achievements track-record}}\\
-
-\noindent \textbf{PUBLICATIONS AS LEAD AUTHOR AND/OR PRINCIPAL CONTRIBUTOR}\\
-
-\noindent J. Renner \emph{et al.} (NEXT Collaboration).  Background rejection in NEXT using deep neural networks.  arXiv:1609.06202 (2016)\\
-
-\noindent J. Renner, A. Cervera, J. A. Hernando, A. Imzaylov, F. Monrabal, J. Mu\~noz, D. Nygren, and J.J. Gomez-Cadenas.  Improved background rejection in neutrinoless double beta decay experiments using a magnetic field in a high pressure xenon TPC.  JINST 10 (2015) P12020. (arXiv:1509.01821)\\
-
-\noindent J. Renner \emph{et al.} (NEXT Collaboration).  Ionization and scintillation of nuclear recoils in gaseous xenon.  Nucl. Instr. Meth. A 793, 62 (2015).  (arXiv:1409.2853)\\
-
-\noindent V.\ \'{A}lvarez \emph{et al.} (NEXT Collaboration). Near-intrinsic energy resolution for 30 to 662 keV gamma rays in a high pressure xenon electroluminescent TPC. Nucl. Instr. Meth. A 708, 
-101 (2013).\\(arXiv:1211.4474)\\
-% available online January 18, 2013
-
-\noindent \textbf{SELECTED CONFERENCE PRESENTATIONS}\\
-
-\noindent J. Renner, V. M. Gehman, A. Goldschmidt, D. Nygren, and C.A.B. Oliveira, for the NEXT Collaboration. 
-Characterization of Nuclear Recoils in High Pressure Xenon Gas: Towards a Simultaneous Search for WIMP Dark Matter and Neutrinoless 
-Double Beta Decay.  TAUP 2013 (presentation by J. Renner on Sept. 11, 2013). Phys. Procedia 61, 766 (2015).\\
-
-\noindent Nuclear Recoils and Recombination in High Pressure Xenon Gas.  Advances in Neutrino Technologies (ANT) 2013 
-(presentation by J. Renner on May 11, 2013).\\
-
-\noindent A. Goldschmidt, T. Miller, D. Nygren, J. Renner, D. Shuman, H. Spieler, and J. White.
-High-pressure xenon gas TPC for neutrino-less double-beta decay in 136Xe: Progress toward the goal of 1\% FWHM energy resolution.” 
-2011 IEEE Nuclear Science Symposium (presentation by J. Renner on Oct. 26, 2011).\\
-
-\newpage
 \chead{Part B2}
 \begin{center}
 	\large
 	\textbf{ERC Starting Grant 2017}\\
-	Research proposal [Part B1]\\[2.0\baselineskip]
+	Research proposal [Part B2]\\[2.0\baselineskip]
 \end{center}
 
 \noindent\textbf{Part B2: \underline{The scientific proposal}}\\
@@ -146,6 +83,13 @@ detection medium of choice for a discovery experiment due to its relatively low 
 tracks produced by electrons at energies of order $Q_{\beta\beta}$, which can be analyzed to provide increased background rejection.  NEXT is working towards a presently competitive search 
 for $0\nu\beta\beta$ decay with 100 kg of xenon enriched to 90\% in $^{136}$Xe, which will also demonstrate the capacity to benefit from these advantages of gaseous xenon with a 
 large detector and thus their potential applicability at the tonne-scale.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width= 0.49\textwidth]{fig/NEXT_NEW.png}
+	\includegraphics[width= 0.49\textwidth]{fig/NEXT100.png}
+	\caption{(Left) The pressure vessel of NEXT-NEW, currently being commissioned in the Laboratorio Subterraneo de Canfranc (LSC) in Spain, placed within its lead shielding. (Right) The design of NEXT-100, to be constructed and deployed in the LSC beginning in 2019.} \label{fig.NEXT}
+\end{figure}
 
 Because the senstivity of a background-free $0\nu\beta\beta$ search grows as the square root of the product of the (active mass) $\times$ (exposure time), while in the presence of background the sensitivity increases only as the \emph{fourth} root of the same product, background rejection is of utmost importance. As experiments grow to larger masses, the ability to interpret the information available to reject the maximum amount of background possible becomes vital to the success of the experiment.  It has been recently shown (cite DNN paper) that the conventional analysis of NEXT that has been developed up to this point can be potentially improved using deep neural networks (DNNs) to analyze receonstructed tracks in the experiment. \emph{Such improvements in the analysis will be critical in reaching the ultimate sensitivity of NEXT and in reaching the targeted sensitivity in a larger, tonne-scale experiment.}\\
 
@@ -204,7 +148,7 @@ The fundamental constituent of a neural network is the \emph{neuron}, which take
 	\centering
 	\includegraphics[width= 0.48\textwidth]{fig/general_nn_fc.pdf}
 	\includegraphics[width= 0.48\textwidth]{fig/cnn_example.pdf}
-	\caption{(Left) A fully-connected neural network architecture in which all neurons in a layer are connected to all neurons in the previous and next layers. (Right) A convolutional layer, in which the neurons consider as inputs only those within an $m \times n ~(\times k_i)$ for a filter size of $m \times n$ and a number of input channels $k_i$. The number of output channels $k_f$ is the number of ``feature maps,'' roughly corresponding to the number of ``features'' the layer is trained to identify. Each neuron in each output channel shares the same set of $m \times n ~(\times k_i)$ weights, significantly reducing the number of parameters when compared to a fully connected layer.} \label{fig.nets}
+	\caption{(Left) A fully-connected neural network architecture in which all neurons in a layer are connected to all neurons in the previous and next layers. (Right) A convolutional layer, in which the neurons consider as inputs only those within an $m \times n ~(\times ~k_i)$ for a filter size of $m \times n$ and a number of input channels $k_i$. The number of output channels $k_f$ is the number of ``feature maps,'' roughly corresponding to the number of ``features'' the layer is trained to identify. Each neuron in each output channel shares the same set of $m \times n ~(\times ~k_i)$ weights, significantly reducing the number of parameters when compared to a fully connected layer. (Some content of figure from \cite{NEXT_DNN})} \label{fig.nets}
 \end{figure}
 
 In the era of deep learning, conventional neural networks have evolved to suit individual problems and take advantage of the ability of modern computers to train a many-layer network. A \emph{convolutional neural network} (CNN) is one in which one or more specialized convolutional layers are present. These layers are not fully connected, but only a subset of outputs from the previous layer are used as inputs to each neuron in a convolutional layer. The outputs are then constructed with a set of weights and biases that are shared across all neurons in the layer. For example, in a 2D convolutional layer, the inputs are transformed to an image of dimensions $l \times w$. Some number $k$ of \emph{filters}, or sets of weights and biases of dimension $m \times n$ are applied to each patch of $m \times n$ input neurons via a multiplicative sum (convolution). An activation function is applied to the result of each convolution to give an output value so that for each filter $k$, a \emph{feature map} is generated which describes the response of the input images to the filter. As the net is trained, the filters begin to identify certain features of the image by outputting higher output in their feature maps as they are encountered. Deeper convolutional layers can become capable of identifying yet higher-level features. Several techniques are used in conjunction with convolutional layers, including \emph{pooling} which reduces the size of a feature map by taking some value (the average or the maximum) of subsets of the neurons in the feature map and discarding the rest, thus reducing the number of parameters in deeper layers. 
@@ -235,7 +179,15 @@ In further studies, several changes to this strategy could be investigated. For 
 	\item[-] 3D convolutional layers could be employed, which, though more computationally expensive, do not suffer from the loss of information present when taking projections.
 \end{enumerate}
 
-To implement the ideas above, the DNN software Keras \cite{Keras} in combination with Theano \cite{Theano} and Tensorflow \cite{Tensorflow} can be used to rapidly create and train prototype DNNs. It will also be of great interest to attempt to understand what the net is ``learning'' to optimize the net design. This can be done by examining the values of the weights of key convolutional layers, which give insight into what features they are extracting, and by carefully examining the events that are improperly classified in an attempt to identify features that are not being considered by the net. There are also physical limits to the problem - for example, a $0\nu\beta\beta$ event in which nearly all the energy is carried away by one of the two electrons is, to a detector of finite resolution, physically equivalent to a single-electron (background) event. Understanding such details not only helps in converging on the best possible classification in NEXT but also will guide similar applications of DNNs in physics.
+To implement the ideas above, the DNN software Keras \cite{Keras} in combination with Theano \cite{Theano} and Tensorflow \cite{Tensorflow} can be used to rapidly create and train prototype DNNs. It will also be of great interest to attempt to understand what the net is ``learning'' to optimize the net design. This can be done by examining the values of the weights and/or feature maps of key convolutional layers, which may give insight into what features they are extracting (see figure \ref{fig.featuremaps} and \cite{Aurisano_2016}), and by carefully examining the events that are improperly classified in an attempt to identify features that are not being considered by the net. There are also physical limits to the problem - for example, a $0\nu\beta\beta$ event in which nearly all the energy is carried away by one of the two electrons is, to a detector of finite resolution, physically equivalent to a single-electron (background) event. Understanding such details not only helps in converging on the best possible classification in NEXT but also will guide similar applications of DNNs in physics.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.5]{fig/MAGBOX_oldPhys_600k_png0.png}\\
+	\includegraphics[scale=0.3635]{fig/MAGBOX_oldPhys_600k_png0_conv1_output_8x8.png}
+	\includegraphics[scale=1.0]{fig/MAGBOX_oldPhys_600k_png0_inception3b_output_8x8.png}
+	\caption{\label{fig.featuremaps}(Top) A Monte Carlo generated signal event converted to an RGB image in which each color contains information about one projection $(xy, yz, yz) \rightarrow (R, G, B)$.  Note that the colors have been brightened from their original values for for better visibility. (Bottom left) The feature maps, as visualized by the NVIDIA DIGITS \cite{DIGITS} interface, output by the first convolutional layer of a trained GoogLeNet DNN in classification of the input event. (Bottom right) 64 of the feature maps after a convolutional layer 7-layers-deep into the same DNN in classifying the same event. The outputs of the initial convolutional layer look somewhat similar to the input event, essentially responding to certain patterns in the track. Here the convolution is done in steps of 2 pixels, so the image size is reduced by $1/2$ in each dimension. Looking into deeper layers (in which the image size has been further reduced) begins to show the higher-level features exhibited by this event that the DNN is recognizing.}
+\end{figure}
 
 The reconstruction of tracks using DNNs could serve as a replacement for an otherwise complex reconstruction algorithm that would need to consider many special cases. As mentioned previously, due to electron multiple scattering, electron tracks in xenon gas can become quite complex. As the events are reconstructed as a series of 2D projections, a single projection may contain one or several regions of energy deposition. Assigning a single ``point'' of energy deposition to each of such regions may give a good representation of the track, but in many cases such regions will be more suited to a line than a point, and a more sophisticated analysis is needed. A good algorithm must decide where the energy was deposited and how much was deposited there by looking at a map of SiPMs, which in NEXT-NEW will be positioned with a pitch of 1 cm (see figure \ref{fig.reconst_example}).
 
@@ -268,22 +220,57 @@ Recent Monte Carlo simulations within the NEXT collaboration (ref?), have shown 
 	\item[3.] Demonstration of the reconstruction and background rejection capabilities of the DNN-based analysis using calibration sources. The procedure would be similar to that employed in \cite{NEXT_topology}, in which ``background'' events are produced by 1.275 MeV gamma rays from a $^{22}$Na source, and ``signal'' events are electron-positron pairs of total energy 1.592 MeV produced via pair-productions in the interactions of a 2.614 MeV gamma ray from a $^{228}$Th source (in which both 511 keV gammas produced in the annihilation of the positron escape from the active volume).
 \end{enumerate}
 
-We aim to demonstrate a factor of 10 background rejection from the current conventional analysis for an acceptable signal efficiency using a DNN-based analysis under conditions of low-diffusion. Though this is an aggressive goal, \emph{we have already shown in an initial study that in the low-diffusion case, we expect to achieve a factor of 3 improvement solely by replacing the conventional ``blob'' cuts by a DNN classifier.}\\
+We aim to demonstrate a factor of 10 background rejection from the current conventional analysis for an acceptable signal efficiency using a DNN-based analysis under conditions of low-diffusion. Though this is an aggressive goal, \emph{we have already shown in an initial study that in the low-diffusion case, we expect to achieve a factor of 1.6 improvement solely by replacing the conventional ``blob'' cuts by a DNN classifier.}\\
 
 \noindent\textbf{\textbullet\,\,Phase III - Construction of a full DNN-based analysis for NEXT-100 (1.5 - 2 years)}\\
 The final phase of the proposed project consists of applying what was learned in the first phases to the development of the analysis for NEXT-100. Such an analysis would make use of DNNs at several stages. In each case, the net would be trained with many suitable Monte Carlo events and then deployed on data taken from the detector. The corresponding conventional analysis algorithms will be run in parallel with all DNN-based analyses for comparison, as though deep learning methods could theoretically improve the analysis, they are dependent on a precise Monte Carlo simulation of the training data. As NEXT-100 will contain significantly more sensors than NEXT-NEW (60 as opposed to 12 PMTs, and of order 7200 as opposed to 1800 SiPMs) and therefore produce larger volumes of data, more powerful computer hardware, described in section C, will be required for the analysis. The analysis can be divided into several key steps, including pre-processing, reconstruction, and classification. Calibration steps outside the main analysis chain will also be necessary. These steps are summarized below and sketched in figure .\\
 
-\textbf{Pre-processing:} Here the raw data from the detector is processed from waveforms, or voltage samples vs. time from the PMTs and SiPMs, to sensor response maps, or charge in detected photons for each sensor in slices of time. This step involves integration of the signals in each sensor and conversion to photons using light calibration information. An initial energy cut can be applied at this point to eliminate events that fall well outside the energy range of interest.
+\noindent\textbf{Pre-processing:} Here the raw data from the detector is processed from waveforms, or voltage samples vs. time from the PMTs and SiPMs, to sensor response maps, or charge in detected photons for each sensor in slices of time. This step involves integration of the signals in each sensor and conversion to photons using light calibration information. An initial energy cut can be applied at this point to eliminate events that fall well outside the energy range of interest.\\
 
-\textbf{Reconstruction:} The spatial distribution of energy in the event (the particle track) is determined from the patterns present in the SiPM sensor maps and the energy information from the corresponding PMT sensor maps using a DNN. Conversion factors and geometrical corrections determined from the energy calibration step are then applied to give a fully reconstructed track with position and energy information.
+\noindent\textbf{Reconstruction:} The spatial distribution of energy in the event (the particle track) is determined from the patterns present in the SiPM sensor maps and the energy information from the corresponding PMT sensor maps using a DNN. Conversion factors and geometrical corrections determined from the energy calibration step are then applied to give a fully reconstructed track with position and energy information.\\
 
-\textbf{Classification:} A DNN is used to classify the event as signal or background. Depending on the results of the studies in the previous phases, the DNN may make use of the position information obtained from the reconstruction step or use the corrected SiPM sensor maps directly.
+\noindent\textbf{Classification:} A DNN is used to classify the event as signal or background. Depending on the results of the studies in the previous phases, the DNN may make use of the position information obtained from the reconstruction step or use the corrected SiPM sensor maps directly.\\
 
-\textbf{[Calibration:]} Separate calibration steps will need to be run, including a light calibration in which LEDs are used to determine the single-photon response of each sensor, and an energy calibration step using point-like depositions to determine the conversion between photons detected in the energy plane and physical energy, and to determine geometrical corrections. Higher-energy sources may also be used in the energy calibration step to confirm linearity. A DNN will be used to reconstruct point-like energy depositions and thereby extract the geometrical correction factors.
+\noindent\textbf{[Calibration:]} Separate calibration steps will need to be run, including a light calibration in which LEDs are used to determine the single-photon response of each sensor, and an energy calibration step using point-like depositions to determine the conversion between photons detected in the energy plane and physical energy, and to determine geometrical corrections. Higher-energy sources may also be used in the energy calibration step to confirm linearity. A DNN will be used to reconstruct point-like energy depositions and thereby extract the geometrical correction factors.\\
 
-%  analysis chain and sensitivity curve
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.18]{fig/analysis_diagram.pdf}
+	\caption{\label{fig.analysis}Summary of DNN-based analysis chain for application to NEXT-100. The steps requiring DNNs specifically are shaded in gray.}
+\end{figure}
+
+Our ultimate goal in this phase is to demonstrate the potential improvement in sensitivity to $0\nu\beta\beta$ decay from the combination of using DNNs and possibly reduced diffusion. Figure shows the potential improvement obtained from low diffusion and the use of DNNs for classification in the recent Monte Carlo study \cite{NEXT_DNN} performed by NEXT. All in all, we emphasize that in order to surpass a sensitivity to values of $T^{0\nu}_{1/2}$ near $10^{27}$ years, it will require a combination of improved analysis and possibly lower diffusion, and an active mass of order tonnes.\\
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.6]{fig/half_life_sensitivity.pdf}
+	\caption{\label{fig.halflife}The calculated sensitivity of NEXT-100 to the half life of neutrinoless double beta decay $T^{0\nu}_{1/2}$ for a given exposure time. The blue curve shows the sensitivity assuming the conventional NEXT analysis under conditions of pure xenon diffusion, and the red curve shows the sensitivity assuming the improvements obtained thus far with DNN-based classification and low diffusion. The calculation was done using the Feldman-Cousins approach \cite{Feldman_1998} as described in detail in \cite{NEXT_sensitivity}. (Figure from \cite{NEXT_DNN})}
+\end{figure}
 
 {\noindent\textbf{Section C: Resources (including project costs)}}\\
+
+\noindent\textbf{\textbullet\,\,The NEXT Collaboration}\\
+NEXT is an international collaboration consisting of groups from over 15 institutions and 5 different countries. It is lead by co-spokespersons J.J. G\'{o}mez-Cadenas (Research Professor, Consejo Superior de Investigaciones Cient\'{i}ficas (CSIC), Spain) and David Nygren (Presidential Distinguished Professor of Physics, University of Texas at Arlington (UTA), USA). G\'{o}mez-Cadenas founded the neutrino group at the Instituto de F\'{i}sica Corpuscular (IFIC) in 1998, which now consists of 2 full professors, 2 staff scientists, 4 postdocs, 6 graduate students, 2 electrical engineers, and 2 mechanical engineers. Nygren is the inventor of the Time Projection Chamber (TPC), a detector technology which has made tremendous impact on the field of particle physics, and is a member of the National Academy of Sciences.
+
+G\'{o}mez-Cadenas currently holds an ERC Advanced Grant for R\&D and construction of NEXT. This funding, along with a Fulbright Junior Researcher grant previously held by the proposed P.I. (J. Renner), has allowed NEXT to conduct an initial study on the application of deep learning as an analysis technique in NEXT. The promising results obtained suggest a more detailed and complete study is needed and could make a key difference in the outcome of NEXT and future ton-scale searches for $0\nu\beta\beta$.\\
+
+\noindent\textbf{\textbullet\,\,Proposed personnel expenses}\\
+Currently, a significant fraction of the IFIC group is devoted to developing software and analysis for the experiment. The core DNN team would be comprised of the P.I., 2 postdocs, and 2 graduate students from this group. The idea would be to have two small teams overseen by the P.I., each team consisting of 1 postdoc and 1 graduate student, that would begin addressing one of the two main DNN-based tasks (reconstruction and classification) in the initial phase of the project. Later the two teams would join efforts internally and with the rest of the NEXT software and analysis team to analyze data from NEXT-NEW and ultimately NEXT-100.
+
+The P.I. and each post-doc would require a commitment of 42 650\euro ~per year, and each graduate student 22 500\euro ~per year.\\
+% more detailed plan for how work is divided?
+
+\noindent\textbf{\textbullet\,\,Existing tools and equipment}\\
+The initial DNN studies within NEXT have been run on GPUs on a machine at UTA which is shared with other users there. The continued use of this machine for more intensive studies is impractical, and thus a machine containing 2 NVIDIA TITAN X GPUs has been ordered and is to be set up at IFIC. This machine should be sufficient to begin phase I of the proposed project. Throughout the project, we will continue to make use of existing open-source deep learning software tools. We intend particularly to make use of Python-based tools such as Keras \cite{Keras}, Theano \cite{Theano}, and TensorFlow \cite{Tensorflow} which allow for rapid prototyping and training of neural networks.
+
+The detectors NEXT-NEW and NEXT-100 will also be used in phases II and III, though these are funded by the main NEXT grants and other sources, and thus no resources are requested in this proposal to be applied directly to the construction and operation of the detectors outside the scope of applications to deep learning. In particular, NEXT-NEW should already be operational and performing its initial physics run when the proposed project begins.\\
+
+\noindent\textbf{\textbullet\,\,Proposed equipment expenses}\\
+We request 20 000\euro ~(4000/year) to cover miscellaneous computing expenses of individual group members. We also propose 20 000\euro ~towards the purchase of a larger ($\sim$8-GPU) machine later in the project (year 3) to meet the larger data analysis needs of NEXT-100. If the timing is right and if still plausible after further investigation, some of these proposed computing funds may go towards the purchase of a computer with neural architecture.
+
+Recent research and development has focused on new types of computers with architectures designed to reflect the brain, that is a designed as a neural network in \emph{hardware}. The IBM TrueNorth \cite{TrueNorth} chip, consisting of 1 million ``neurons'' and 256 million neural connections or ``synapses'' made using 5.4 billion transistors, was recently developed along with corresponding tools for simulating and programming it. If a machine containing such a chip were to become readily available during the timespan of this project, we would be interested in running the proposed DNN-based analysis in this new type of hardware and assessing the potential advantages it may offer.\\
+
+\noindent\textbf{\textbullet\,\,Summary of resources requested}\\
 
 \begin{center}
 	\renewcommand{\arraystretch}{1.2}
@@ -294,53 +281,193 @@ The final phase of the proposed project consists of applying what was learned in
 		
 		\multirow{12}{*}{\parbox{1.2cm}{\textbf{Direct Costs}}} &
 		\multirow{5}{*}{\textbf{Personnel}} & 
-		PI & \\
+		PI & 213 250\\
 		\cline{3-4}
-		&& Senior Staff &\\
+		&& Senior Staff & 0\\
 		\cline{3-4}
-		&& Postdocs &\\
+		&& Postdocs & 426 500\\
 		\cline{3-4}
-		&& Students &\\
+		&& Students & 337 500\\
 		\cline{3-4}
-		&& Other &\\
+		&& Other & 0\\
 		
 		\cline{2-4}		
-		& \multicolumn{2}{|l|}{\emph{i. Total Direct Costs for Personnel (in Euro)}} & \\
+		& \multicolumn{2}{l|}{\emph{i. Total Direct Costs for Personnel (in Euro)}} & 977 250\\
 		\cline{2-4}		
-		& \multicolumn{2}{|l|}{\textbf{Travel}} & \\
+		& \multicolumn{2}{l|}{\textbf{Travel}} & 25 000\\
 		\cline{2-4}		
-		& \multicolumn{2}{|l|}{\textbf{Equipment}} & \\
+		& \multicolumn{2}{l|}{\textbf{Equipment}} & 40 000\\
 		\cline{2-4}
 		
 		& \multirow{3}{*}{\parbox{2.5cm}{\textbf{Other goods and services}}} & 
-		Consumables & \\
+		Consumables & 0\\
 		\cline{3-4}
-		&& Publications (including Open Access fees), etc. &\\
+		&& Publications (including Open Access fees), etc. & 0\\
 		\cline{3-4}
-		&& Other (please specify) &\\
-
-		\cline{2-4}		
-		& \multicolumn{2}{|l|}{\emph{ii. Total Other Direct Costs (in Euro)}} & \\
-
-		\cline{1-4}
-		\multicolumn{3}{|l|}{\textbf{A - Total Direct Costs (i + ii)} (in Euro)} & \\
-		\cline{1-4}
-		\multicolumn{3}{|l|}{\textbf{B - Indirect Costs (overheads)} 25\% of Direct Costs (in Euro)} & \\
-		\cline{1-4}
-		\multicolumn{3}{|l|}{\textbf{C1 - Subcontracting Costs} (no overheads) (in Euro)} & \\
-		\cline{1-4}
-		\multicolumn{3}{|l|}{\textbf{C2 - Other Direct Costs with no overheads} (in Euro)} & \\
-		\cline{1-4}
-		\multicolumn{3}{|l|}{\textbf{Total Estimated Eligible Costs (A + B + C)} (in Euro)} & \\
-		\cline{1-4}
-		\multicolumn{3}{|l|}{\textbf{Total Requested EU Contribution} (in Euro)} & \\
-														
-		\hline
+		&& Other (please specify) & 0\\
 		
+		\cline{2-4}		
+		& \multicolumn{2}{l|}{\emph{ii. Total Other Direct Costs (in Euro)}} & 65 000\\
+		
+		\cline{1-4}
+		\multicolumn{3}{|l|}{\textbf{A - Total Direct Costs (i + ii)} (in Euro)} & 1 042 250\\
+		\cline{1-4}
+		\multicolumn{3}{|l|}{\textbf{B - Indirect Costs (overheads)} 25\% of Direct Costs (in Euro)} & 260 563\\
+		\cline{1-4}
+		\multicolumn{3}{|l|}{\textbf{C1 - Subcontracting Costs} (no overheads) (in Euro)} & 0\\
+		\cline{1-4}
+		\multicolumn{3}{|l|}{\textbf{C2 - Other Direct Costs with no overheads} (in Euro)} & 0\\
+	\cline{1-4}
+	\rowcolor{Gray}
+	\multicolumn{3}{|l|}{\textbf{Total Estimated Eligible Costs (A + B + C)} (in Euro)} & 1 302 813\\
+	\rowcolor{black}
+	\cline{1-4}
+	\rowcolor{Gray}
+	\multicolumn{3}{|l|}{\textbf{Total Requested EU Contribution} (in Euro)} & 1 302 813\\
+	
+	\hline
+	
+\end{tabular}
+\end{center}
+
+\begin{center}
+	\begin{tabular}{||L{14.0 cm}|R{1.2 cm}||}
+		\hline
+		\hline
+		\textbf{Please indicate the duration of the project in months:} & 60\\
+		\hline
+		\hline
+		\textbf{Please indicate the \% of working time the PI dedicates to the project over the period of the grant:} & \textbf{90\%} \\
+		\hline
+		\hline
 	\end{tabular}
 \end{center}
 
-% Discuss resources, larger GPU machine, neural computer
+%\begin{center}
+%	\renewcommand{\arraystretch}{1.2}
+%	\begin{tabular}{|L{1.2 cm}|L{2.5 cm}|L{8.0 cm}|C{3.0 cm}|}
+%		\hline
+%		\multicolumn{3}{|l|}{\textbf{Cost Category}} & {\centering\textbf{Total in Euro}}\\
+%		\hline
+%		
+%		\multirow{12}{*}{\parbox{1.2cm}{\textbf{Direct Costs\footnote{An additional cost category 'Direct Costing for Large Research Infrastructures' applicable to H2020 can be added to this table (below `Other goods and services') for PIs who are hosted by institutions with Large Research Infrastructures of a value of at least EUR 20 million and only after having received a positive ex-ante assessment from the Commission's services (see \emph{`Information for Applicants to the Starting and Consolidator Grant 2017 Calls'} for more details).}}}} &
+%		\multirow{5}{*}{\textbf{Personnel}} & 
+%		PI\footnote{When calculating the salary, please take into account the percentage of your dedicated working time to run the ERC- funded project (i.e. minimum 50\% of your total working time).} & \\
+%		\cline{3-4}
+%		&& Senior Staff &\\
+%		\cline{3-4}
+%		&& Postdocs &\\
+%		\cline{3-4}
+%		&& Students &\\
+%		\cline{3-4}
+%		&& Other &\\
+%		
+%		\cline{2-4}		
+%		& \multicolumn{2}{l|}{\emph{i. Total Direct Costs for Personnel (in Euro)}} & \\
+%		\cline{2-4}		
+%		& \multicolumn{2}{l|}{\textbf{Travel}} & \\
+%		\cline{2-4}		
+%		& \multicolumn{2}{l|}{\textbf{Equipment}} & \\
+%		\cline{2-4}
+%		
+%		& \multirow{3}{*}{\parbox{2.5cm}{\textbf{Other goods and services}}} & 
+%		Consumables & \\
+%		\cline{3-4}
+%		&& Publications (including Open Access fees), etc. &\\
+%		\cline{3-4}
+%		&& Other (please specify) &\\
+%		
+%		\cline{2-4}		
+%		& \multicolumn{2}{l|}{\emph{ii. Total Other Direct Costs (in Euro)}} & \\
+%		
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{A - Total Direct Costs (i + ii)} (in Euro)} & \\
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{B - Indirect Costs (overheads)} 25\% of Direct Costs\footnote{Please note that the overheads are fixed to a flat rate of exactly 25\%.} (in Euro)} & \\
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{C1 - Subcontracting Costs} (no overheads) (in Euro)} & \\
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{C2 - Other Direct Costs with no overheads\footnote{Such as the costs of resources made available by third parties which are not used on the premises of the beneficiary (see \emph{`Information for Applicants to the Starting and Consolidator Grant 2017 Calls' for details).}}} (in Euro)} & \\
+%		\cline{1-4}
+%		\rowcolor{Gray}
+%		\multicolumn{3}{|l|}{\textbf{Total Estimated Eligible Costs (A + B + C)} (in Euro)\footnote{\label{note1}These figures MUST match those presented in the online proposal submission form, section 3 -- Budget.}} & \\
+%		\rowcolor{black}
+%		\cline{1-4}
+%		\rowcolor{Gray}
+%		\multicolumn{3}{|l|}{\textbf{Total Requested EU Contribution} (in Euro)\footref{note1}} & \\
+%		
+%		\hline
+%		
+%	\end{tabular}
+%\end{center}
+
+%\begin{center}
+%	\begin{tabular}{||L{14.0 cm}|R{1.2 cm}||}
+%		\hline
+%		\hline
+%		\textbf{Please indicate the duration of the project in months:\footnote{The maximum award is reduced pro rata temporis for projects of a shorter duration (e.g. for a project of 48 months duration the maximum requested EU contribution allowed is EUR 1.2 million).  Additional funding to cover major one-off costs is not subject to pro-rata temporis reduction for projects of shorter duration (e.g. with additional funding it is possible to request a maximum EU contribution of EUR 1.7 million for a project of 48 months duration). }} & \\
+%		\hline
+%		\hline
+%		\textbf{Please indicate the \% of working time the PI dedicates to the project over the period of the grant:} & \textbf{90\%} \\
+%		\hline
+%		\hline
+%	\end{tabular}
+%\end{center}
+
+%\begin{center}
+%	\renewcommand{\arraystretch}{1.2}
+%	\begin{tabular}{|L{1.2 cm}|L{2.5 cm}|L{8.0 cm}|C{3.0 cm}|}
+%		\hline
+%		\multicolumn{3}{|l|}{\textbf{Cost Category}} & {\centering\textbf{Total in Euro}}\\
+%		\hline
+%		
+%		\multirow{12}{*}{\parbox{1.2cm}{\textbf{Direct Costs}}} &
+%		\multirow{5}{*}{\textbf{Personnel}} & 
+%		PI & \\
+%		\cline{3-4}
+%		&& Senior Staff &\\
+%		\cline{3-4}
+%		&& Postdocs &\\
+%		\cline{3-4}
+%		&& Students &\\
+%		\cline{3-4}
+%		&& Other &\\
+%		
+%		\cline{2-4}		
+%		& \multicolumn{2}{|l|}{\emph{i. Total Direct Costs for Personnel (in Euro)}} & \\
+%		\cline{2-4}		
+%		& \multicolumn{2}{|l|}{\textbf{Travel}} & \\
+%		\cline{2-4}		
+%		& \multicolumn{2}{|l|}{\textbf{Equipment}} & \\
+%		\cline{2-4}
+%		
+%		& \multirow{3}{*}{\parbox{2.5cm}{\textbf{Other goods and services}}} & 
+%		Consumables & \\
+%		\cline{3-4}
+%		&& Publications (including Open Access fees), etc. &\\
+%		\cline{3-4}
+%		&& Other (please specify) &\\
+%		
+%		\cline{2-4}		
+%		& \multicolumn{2}{|l|}{\emph{ii. Total Other Direct Costs (in Euro)}} & \\
+%		
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{A - Total Direct Costs (i + ii)} (in Euro)} & \\
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{B - Indirect Costs (overheads)} 25\% of Direct Costs (in Euro)} & \\
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{C1 - Subcontracting Costs} (no overheads) (in Euro)} & \\
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{C2 - Other Direct Costs with no overheads} (in Euro)} & \\
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{Total Estimated Eligible Costs (A + B + C)} (in Euro)} & \\
+%		\cline{1-4}
+%		\multicolumn{3}{|l|}{\textbf{Total Requested EU Contribution} (in Euro)} & \\
+%		
+%		\hline
+%		
+%	\end{tabular}
+%\end{center}
 
 \newpage
 \bibliography{dnnext}
